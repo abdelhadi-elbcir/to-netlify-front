@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import ProfileSidebar from './sidebar/ProfileSidebar';
-import ProfileInformation from './information/ProfileInformation';
-import ProfileReservations from './reservations/ProfileReservations';
-import ProfileAnnoncements from './profileAnnoncements/ProfileAnnoncements';
-import ProfileFavoris from './profileFavoris/ProfileFavoris';
+import ProfileSidebar from '../../components/profile/sidebar/ProfileSidebar';
+import ProfileInformation from '../../components/profile/information/ProfileInformation';
+import ProfileReservations from '../../components/profile/reservations/ProfileReservations';
+import ProfileAnnoncements from '../../components/profile/profileAnnoncements/ProfileAnnoncements'
+import ProfileFavoris from '../../components/profile/profileFavoris/ProfileFavoris';
 import './Profile.css';
 
 const Profile = () => {
