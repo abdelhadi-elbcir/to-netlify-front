@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    dob: '',
-    phone: '',
-    location: '',
+    username: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    terms: false,
+    confirmPassword:''
   });
 
   const handleChange = (e) => {
@@ -35,48 +31,14 @@ const Register = () => {
             <input
               type="text"
               name="name"
-              value={formData.name}
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
               placeholder="Entrez votre nom"
               required
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Date de Naissance</label>
-            <input
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Téléphone</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              placeholder="Entrez votre numéro de téléphone"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Lieu</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              placeholder="Entrez votre lieu"
-              required
-            />
-          </div>
+          
           <div className="mb-4">
             <label className="block text-[#347928]">Adresse Email</label>
             <input

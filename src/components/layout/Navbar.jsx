@@ -1,6 +1,6 @@
 // Navbar.js
 import React from 'react';
-import Button from '../buttons/raduisButton';
+import Button from '../buttons/CarreButton';
 
 const Navbar = () => {
   return (
