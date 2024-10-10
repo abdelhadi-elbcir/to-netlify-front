@@ -25,6 +25,18 @@ const ProfileInformationPage = () => {
     setProfileData({ ...profileData, [name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Ici, vous pouvez ajouter la logique pour sauvegarder les informations du profil
+    console.log('Données du profil sauvegardées :', profileData);
+  };
+
+  const changePassword = (e) => {
+    e.preventDefault();
+    // Ici, vous pouvez ajouter la logique pour changer password
+    console.log('password changer');
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex">
@@ -78,6 +90,7 @@ const ProfileInformationPage = () => {
                 href="" 
                 label="sauvegarder" 
                 isNavigable={true} 
+                onClick={handleSubmit}
             />
             </form>
           </div>
@@ -94,6 +107,7 @@ const ProfileInformationPage = () => {
                 href="" 
                 label="sauvegarder" 
                 isNavigable={true} 
+                onClick={changePassword}
             />
             </form>
           </div>

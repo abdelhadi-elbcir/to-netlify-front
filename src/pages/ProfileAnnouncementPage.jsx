@@ -20,7 +20,6 @@ const ProfileAnnouncementPage = () => {
       fetchAnnonces();
     }, []);
 
-  
     return (
         <div className="min-h-screen flex justify-center items-center">
         <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex">
@@ -37,8 +36,8 @@ const ProfileAnnouncementPage = () => {
                 label="ajouter une annonce" 
                 isNavigable={true} 
             />
-      </div>
-      </div>
+           </div>
+        </div>
       </div>
     );
   };
