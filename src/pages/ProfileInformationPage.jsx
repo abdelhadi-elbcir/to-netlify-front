@@ -3,7 +3,7 @@ import Sidebar from '../components/manageProfile/Sidebar';
 import FormInput from '../components/manageProfile/FormInput';
 import TextareaInput from '../components/manageProfile/TextareaInput';
 import SelectInput from '../components/manageProfile/SelectInput';
-import ProfileButton from '../components/buttons/profileButton';
+import ActionButton from '../components/buttons/ActionButton';
 
 const ProfileInformationPage = () => {
   const [profileData, setProfileData] = useState({
@@ -60,7 +60,7 @@ const ProfileInformationPage = () => {
                 />
                 <FormInput label="Date de Naissance" value={profileData.dob} name="dob" type="date" handleChange={handleChange} />
               </div>
-              
+
               <FormInput label="Téléphone" value={profileData.phone} name="phone" handleChange={handleChange} />
               <FormInput label="Adresse" value={profileData.address} name="address" handleChange={handleChange} />
               <FormInput label="Lieu" value={profileData.location} name="location" handleChange={handleChange} />
@@ -74,7 +74,11 @@ const ProfileInformationPage = () => {
                 rows={4} 
               />
               <br />
-              <ProfileButton label="Sauvegarder" />
+              <ActionButton 
+                href="" 
+                label="sauvegarder" 
+                isNavigable={true} 
+            />
             </form>
           </div>
 
@@ -86,7 +90,11 @@ const ProfileInformationPage = () => {
               <FormInput label="Mot de Passe" value={profileData.password} name="password" type="password" handleChange={handleChange} />
               <FormInput label="Confirmer le Mot de Passe" value={profileData.confirmPassword} name="confirmPassword" type="password" handleChange={handleChange} />
                <br />
-              <ProfileButton label="Sauvegarder" />
+               <ActionButton 
+                href="" 
+                label="sauvegarder" 
+                isNavigable={true} 
+            />
             </form>
           </div>
         </div>
