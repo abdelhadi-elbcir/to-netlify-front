@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
-import AnnoucementDetails from './components/annoucement/AnnoucementDetails';
+import AnnoucementDetails from './components/annoucement/details/AnnoucementDetails';
 
 // Import other pages as needed
 // import About from './pages/about/About';
