@@ -1,13 +1,13 @@
+// Layout.js
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import './layout.css';
 
 const Layout = ({ children }) => {
   return (
-    <div className="layout">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="main-content">
+      <main className="flex-1 p-4 bg-[#FFFBE6]">
         {children}
       </main>
       <Footer />
