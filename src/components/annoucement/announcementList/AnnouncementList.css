@@ -1,0 +1,82 @@
+.announcement-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.announcement-list__title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.announcement-list__description {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.announcement-list__grid-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.announcement-list__grid {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 20px 0;
+}
+
+.announcement-list__grid::-webkit-scrollbar {
+  display: none;
+}
+
+.announcement-list__grid > * {
+  flex: 0 0 auto;
+  width: 250px; /* Adjust if needed to match your original card width */
+}
+
+.announcement-list__nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+.announcement-list__nav-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.announcement-list__nav-btn--left {
+  left: 10px;
+}
+
+.announcement-list__nav-btn--right {
+  right: 10px;
+}
+
+.announcement-list__nav-btn svg {
+  width: 24px;
+  height: 24px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .announcement-list__grid > * {
+    width: 200px; /* Adjust for smaller screens if needed */
+  }
+}

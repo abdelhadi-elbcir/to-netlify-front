@@ -1,0 +1,29 @@
+.stops-list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #FFFBE6; /* Beige background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow around the whole list */
+}
+
+.stop-container {
+  display: flex;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.vertical-line {
+  position: absolute;
+  left: 20px; /* Align the vertical line */
+  top: 0;
+  bottom: -30px; /* Extend the line to the bottom of the last stop */
+  width: 2px;
+  background-color: #347928; /* Dark Green */
+}
+
+.stop-container:last-child .vertical-line {
+  display: none; /* Remove the line after the last stop */
+}

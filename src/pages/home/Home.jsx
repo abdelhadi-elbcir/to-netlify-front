@@ -1,14 +1,14 @@
 import React from 'react';
 import './home.css';
-import Profile from '../profile/Profile';
-import ProfileInformationPage from '../ProfileInformationPage';
-import HeroSection from '../../components/heroSection/HeroSection';
+import TripAnnouncementCarousel from '../../components/annoucement/tripAnnouncementCarousel/TripAnnouncementCarousel';
+import AnnouncementList from '../../components/annoucement/announcementList/AnnouncementList';
 
 const Home = () => {
   return (
     <>
-<HeroSection />
-</>
+      <TripAnnouncementCarousel />
+      <AnnouncementList />
+      </>
   );
 };
 
