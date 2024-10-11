@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { FaUser, FaHistory, FaBell, FaEnvelope } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; //
 
 const Sidebar = () => {
-  // Gérer l'état actif
-  const [activeItem, setActiveItem] = useState('profile'); // 'Informations du Profil' actif par défaut
+
+  const [activeItem, setActiveItem] = useState(''); 
+  const navigate = useNavigate(); 
+
+  const handleNavigation = (item) => {
+    setActiveItem(item);
+    if (item === 'announcements') {
+      navigate('/profile/announcements'); 
+    } else if (item === 'profile') {
+      navigate('/profile'); 
+    }
+
+  };
 
   return (
     <div className="w-1/4 p-4 bg-gray-50 shadow-lg rounded-md">
@@ -27,7 +39,7 @@ const Sidebar = () => {
               ? 'bg-[#347928] text-white'
               : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
           }`}
-          onClick={() => setActiveItem('profile')}
+          onClick={() => handleNavigation('profile')}
         >
           <FaUser />
           <span className="font-medium">Informations du Profil</span>
@@ -38,29 +50,29 @@ const Sidebar = () => {
               ? 'bg-[#347928] text-white'
               : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
           }`}
-          onClick={() => setActiveItem('booking')}
+          onClick={() => handleNavigation('booking')}
         >
           <FaHistory />
           <span className="font-medium">Historique des Réservations</span>
         </li>
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
-            activeItem === 'newsletter'
+            activeItem === 'notification'
               ? 'bg-[#347928] text-white'
               : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
           }`}
-          onClick={() => setActiveItem('newsletter')}
+          onClick={() => handleNavigation('notification')}
         >
           <FaEnvelope />
-          <span className="font-medium">Abonnement à la Newsletter</span>
+          <span className="font-medium">notification</span>
         </li>
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
-            activeItem === 'notifications'
+            activeItem === 'announcements'
               ? 'bg-[#347928] text-white'
               : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
           }`}
-          onClick={() => setActiveItem('notifications')}
+          onClick={() => handleNavigation('announcements')}
         >
           <FaBell />
           <span className="font-medium">Gérer les Annonces</span>
