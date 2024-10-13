@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    dob: '',
-    phone: '',
-    location: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -27,58 +25,31 @@ const Register = () => {
 
   return (
     <div className="flex justify-center items-center py-10 bg-[#FFFBE6]">
+    
       <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
-        <h2 className="text-2xl font-semibold text-[#347928] mb-6">Créer un Compte</h2>
+        <h2 className="text-2xl font-semibold text-[#347928] mb-6 text-center">Créer un Compte</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-[#347928]">Nom</label>
+            <div className="flex items-center mb-1">
+              <FaUser className="mr-2 text-[#347928]" />
+              <label className="text-[#347928]">Nom</label>
+            </div>
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
               placeholder="Entrez votre nom"
               required
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-[#347928]">Date de Naissance</label>
-            <input
-              type="date"
-              name="dob"
-              value={formData.dob}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Téléphone</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              placeholder="Entrez votre numéro de téléphone"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Lieu</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              placeholder="Entrez votre lieu"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-[#347928]">Adresse Email</label>
+            <div className="flex items-center mb-1">
+              <FaEnvelope className="mr-2 text-[#347928]" />
+              <label className="text-[#347928]">Adresse Email</label>
+            </div>
             <input
               type="email"
               name="email"
@@ -89,8 +60,12 @@ const Register = () => {
               required
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-[#347928]">Mot de Passe</label>
+            <div className="flex items-center mb-1">
+              <FaLock className="mr-2 text-[#347928]" />
+              <label className="text-[#347928]">Mot de Passe</label>
+            </div>
             <input
               type="password"
               name="password"
@@ -101,8 +76,12 @@ const Register = () => {
               required
             />
           </div>
+
           <div className="mb-4">
-            <label className="block text-[#347928]">Confirmer le Mot de Passe</label>
+            <div className="flex items-center mb-1">
+              <FaLock className="mr-2 text-[#347928]" />
+              <label className="text-[#347928]">Confirmer le Mot de Passe</label>
+            </div>
             <input
               type="password"
               name="confirmPassword"
@@ -113,6 +92,7 @@ const Register = () => {
               required
             />
           </div>
+
           <div className="mb-4 flex items-center">
             <input
               type="checkbox"
@@ -124,6 +104,7 @@ const Register = () => {
             />
             <label className="text-[#347928]">J'accepte les conditions d'utilisation</label>
           </div>
+
           <button
             type="submit"
             className="w-full bg-[#347928] text-[#FFFBE6] px-4 py-2 rounded-lg font-bold hover:bg-[#C0EBA6] transition duration-300"
@@ -131,7 +112,7 @@ const Register = () => {
             S'inscrire
           </button>
         </form>
-        <p className="mt-4 text-center text-[black]">
+        <p className="mt-4 text-center text-black">
           Vous avez déjà un compte ?{' '}
           <a href="/login" className="text-[#347928] hover:underline">
             Se connecter

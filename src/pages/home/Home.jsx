@@ -1,12 +1,16 @@
 import React from 'react';
 import './home.css';
-import Main from '../../components/home/Main';
+import TripAnnouncementCarousel from '../../components/annoucement/tripAnnouncementCarousel/TripAnnouncementCarousel';
+import AnnouncementList from '../../components/annoucement/announcementList/AnnouncementList';
+import MainSection from '../../components/home/Main';
 
 const Home = () => {
   return (
-    <div className="home">
-      <Main/>
-    </div>
+    <>
+      <MainSection/>
+      <TripAnnouncementCarousel />
+      <AnnouncementList />
+    </>
   );
 };
 

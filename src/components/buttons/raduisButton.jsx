@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ href, label }) => {
+const RaduisButton = ({ href, label }) => {
   return (
     <div>
       <a
@@ -13,4 +13,4 @@ const Button = ({ href, label }) => {
   );
 };
 
-export default Button;
+export default RaduisButton;

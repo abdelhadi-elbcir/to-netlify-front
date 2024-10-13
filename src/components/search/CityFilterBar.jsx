@@ -5,25 +5,25 @@ const CityFilterBar = () => {
 
   const cities = [
     'New York',
-    'California',
+    'Californie',
     'Alaska',
     'Sydney',
-    'Dubai',
-    'London',
+    'Dubaï',
+    'Londres',
     'Tokyo',
     'Delhi'
   ];
 
   const handleCityClick = (city) => {
     setSelectedCity(city);
-    // Add any logic here to filter based on the city.
+    // Ajouter toute logique ici pour filtrer en fonction de la ville.
   };
 
   return (
     <div className="text-center py-10">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-4">Explore Popular Cities</h2>
+      <h2 className="text-3xl font-semibold text-gray-800 mb-4">Découvrez des Villes Populaires</h2>
       <p className="text-gray-600 mb-6">
-        Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
+        Explorez les meilleures destinations à travers le monde pour vos prochaines aventures.
       </p>
       <div className="flex justify-center items-center space-x-4 overflow-x-auto">
         {cities.map((city) => (
@@ -32,9 +32,9 @@ const CityFilterBar = () => {
             onClick={() => handleCityClick(city)}
             className={`px-6 py-2 border-2 rounded-full text-sm ${
               selectedCity === city
-                ? 'bg-teal-200 text-white border-teal-400'
+                ? 'bg-[#347928] text-white border-[#C0EBA6]' 
                 : 'text-gray-700 border-gray-300'
-            } hover:bg-teal-200 hover:text-white transition duration-300`}
+            } hover:bg-[#C0EBA6] hover:text-white transition duration-300`} 
           >
             {city}
           </button>

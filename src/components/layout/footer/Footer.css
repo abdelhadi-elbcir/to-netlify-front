@@ -1,0 +1,84 @@
+.footer {
+    background-color: #C0EBA6; /* Couleur de fond */
+    color: #347928; /* Couleur du texte */
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    margin: 20px;
+    flex: 1;
+    min-width: 200px; /* Largeur minimale pour les petits écrans */
+}
+
+.footer-section h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold; /* Texte en gras */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #005700; /* Couleur des liens */
+    text-decoration: none;
+    font-weight: bold; /* Texte en gras pour les liens */
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+    color: #004000; /* Couleur des liens au survol */
+}
+
+.select-input {
+    display: block;
+    padding: 8px;
+    margin: 10px 0;
+    border: 2px solid #347928;
+    border-radius: 5px;
+    background-color: white;
+    color: #347928;
+    font-size: 16px;
+    font-weight: bold;
+    width: 150px; /* Largeur réduite des sélecteurs */
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+.footer-bottom p {
+    font-weight: bold; /* Texte en gras pour le copyright */
+}
+
+.social-media {
+    margin-top: 10px;
+}
+
+.social-media a {
+    color: #347928;
+    margin: 0 20px; /* Ajout d'un espacement plus large entre les icônes */
+    font-size: 24px;
+}
+
+.social-media a:hover {
+    color: #005700;
+}
