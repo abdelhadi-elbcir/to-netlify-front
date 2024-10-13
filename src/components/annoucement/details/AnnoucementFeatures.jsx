@@ -30,7 +30,7 @@ const AnnouncementFeatures = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 mt-4 p-2 lg:grid-cols-3 gap-4">
       {features.map((feature, index) => (
         <div key={index} className="flex items-start">
           <div className="flex-shrink-0">
