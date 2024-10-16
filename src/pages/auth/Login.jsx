@@ -21,8 +21,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#FFFBE6]">
-      <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+    <div className="flex justify-center items-center h-screen bg-white">
+      <div className="w-full max-w-md bg-[#f8f9fa] p-8 shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold text-[#347928] mb-6 text-center">Se connecter</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

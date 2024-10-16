@@ -21,8 +21,8 @@ const ProfileAnnouncementPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex justify-center items-center">
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex">
+    <div className="min-h-screen flex justify-center items-center bg-white ">
+      <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
         {/* Barre latérale */}
         <Sidebar />
 
