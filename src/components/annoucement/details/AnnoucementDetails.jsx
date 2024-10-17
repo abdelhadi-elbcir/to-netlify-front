@@ -27,7 +27,7 @@ const AnnoucementDetails = ({ annoucement }) => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-6 mt-6">
-        <AnnoucementDescription />
+        <AnnoucementDescription description={annoucement?.description} />
       </div>
     </div>
   );

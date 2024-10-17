@@ -35,7 +35,7 @@ const AnnouncementFeatures = () => {
       {features.map((feature, index) => (
         <div key={index} className="flex items-start">
           <div className="flex-shrink-0">
-            <Calendar className="h-6 w-6 text-teal-500" />
+            <Calendar className="h-6 w-6 text-primary" />
           </div>
           <div className="ml-3">
             <h3 className="text-lg font-medium text-gray-900">{feature.title}</h3>
@@ -45,7 +45,7 @@ const AnnouncementFeatures = () => {
       ))}
     </div>
   );
-  
+
 };
 
 export default AnnouncementFeatures;
