@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../state/userSlice';
+import Popup from '../../components/popup/PopupRegister';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
   });
+
+  const [popupMessage, setPopupMessage] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (popupMessage) {
+      setShowPopup(true);  
+    }
+  }, [popupMessage]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,9 +30,41 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    try {
+      const response = await axios.post('http://localhost:8081/api/auth/login', {
+        username: formData.username,
+        password: formData.password,
+      });
+
+      const { accessToken, refreshToken } = response.data;
+
+      // Save tokens in local storage
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      // Update Redux store
+      dispatch(setUser({ accessToken, refreshToken }));
+
+      // Set success message for popup
+      setPopupMessage('Connexion réussie !');
+      setIsError(false);
+
+      // Reset the form
+      setFormData({ username: '', password: '' });
+
+      // Here, you can redirect the user or perform other actions after login
+    } catch (error) {
+      console.error('Erreur lors de la connexion:', error);
+      setPopupMessage("Échec de la connexion. Vérifiez vos informations d'identification.");
+      setIsError(true);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);  // Close the popup
   };
 
   return (
@@ -28,15 +75,15 @@ const Login = () => {
           <div className="mb-4">
             <div className="flex items-center mb-1">
               <FaEnvelope className="mr-2 text-[#347928]" />
-              <label className="text-[#347928]">Adresse Email</label>
+              <label className="text-[#347928]">UserName</label>
             </div>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
+              type="text"
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
-              placeholder="Entrez votre email"
+              placeholder="Entrez votre username"
               required
             />
           </div>
@@ -71,6 +118,16 @@ const Login = () => {
           </a>
         </p>
       </div>
+
+      {/* Popup for messages */}
+      {showPopup && (
+        <Popup 
+          message={popupMessage} 
+          error={isError} 
+          onClose={closePopup} 
+          duration={3000} 
+        />
+      )}
     </div>
   );
 };
