@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import Popup from '../../components/popup/PopupRegister'
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,10 @@ const Register = () => {
     terms: false,
   });
 
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -18,16 +23,61 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Vérifiez si les mots de passe correspondent avant d'envoyer
+    if (formData.password !== formData.confirmPassword) {
+      setError("Les mots de passe ne correspondent pas.");
+      setShowPopup(true); // Afficher la popup pour l'erreur de correspondance
+      return;
+    }
+
+    // Effacez les messages précédents
+    setError('');
+    setMessage('');
+
+    const dataToSend = {
+      username: formData.username,
+      email: formData.email,
+      password: formData.password,
+      role: "USER",
+    };
+
+    try {
+      const response = await fetch('http://localhost:8081/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+
+      const responseText = await response.text();
+
+      if (response.ok) {
+        setMessage(responseText || 'Inscription réussie !');
+        setShowPopup(true);
+      } else {
+        setError(responseText || 'Une erreur s\'est produite.');
+        setShowPopup(true);
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      setError('Erreur de connexion au serveur.');
+      setShowPopup(true);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
-    <div className="flex justify-center items-center py-10 bg-[#FFFBE6]">
-    
-      <div className="w-full max-w-md bg-white p-8 shadow-lg rounded-lg">
+    <div className="flex justify-center items-center py-10 bg-white">
+      <div className="w-full max-w-md bg-[#f8f9fa] p-8 shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold text-[#347928] mb-6 text-center">Créer un Compte</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <div className="flex items-center mb-1">
@@ -112,6 +162,7 @@ const Register = () => {
             S'inscrire
           </button>
         </form>
+
         <p className="mt-4 text-center text-black">
           Vous avez déjà un compte ?{' '}
           <a href="/login" className="text-[#347928] hover:underline">
@@ -119,6 +170,15 @@ const Register = () => {
           </a>
         </p>
       </div>
+
+      {showPopup && (
+        <Popup 
+          message={error || message} 
+          error={!!error} 
+          onClose={closePopup} 
+        />
+)}
+
     </div>
   );
 };

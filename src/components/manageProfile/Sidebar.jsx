@@ -9,8 +9,8 @@ const Sidebar = () => {
 
   const handleNavigation = (item) => {
     setActiveItem(item);
-    if (item === 'announcements') {
-      navigate('/profile/announcements'); 
+    if (item === 'announcements' || item === 'reservations') {
+      navigate(`/profile/${item}`); 
     } else if (item === 'profile') {
       navigate('/profile'); 
     }
@@ -50,7 +50,7 @@ const Sidebar = () => {
               ? 'bg-[#347928] text-white'
               : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
           }`}
-          onClick={() => handleNavigation('booking')}
+          onClick={() => handleNavigation('reservations')}
         >
           <FaHistory />
           <span className="font-medium">Historique des Réservations</span>

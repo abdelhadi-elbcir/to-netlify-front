@@ -64,7 +64,7 @@ const announcements = [
     price: 35.00
   },
 ];
-
+   
 const AnnouncementList = () => {
   const scrollRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);

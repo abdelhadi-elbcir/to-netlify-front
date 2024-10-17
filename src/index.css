@@ -2,11 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+@layer components {
+  .animate-fade-in {
+    @apply transition-opacity duration-300 opacity-0;
+    animation: fadeIn 0.3s forwards;
+  }
+
+  .animate-fade-out {
+    @apply transition-opacity duration-300 opacity-100;
+    animation: fadeOut 0.3s forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
     }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 }
