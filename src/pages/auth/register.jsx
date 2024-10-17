@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { GoogleLogin, googleLogout } from '@react-oauth/google'; // Importation du composant GoogleLogin
+import jwt_decode from 'jwt-decode'; // Pour décoder le token renvoyé par Google
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import Popup from '../../components/popup/PopupRegister'
+import Popup from '../../components/popup/PopupRegister';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -23,17 +25,58 @@ const Register = () => {
     });
   };
 
+  // Fonction qui gère la connexion Google
+  const handleGoogleSuccess = async (response) => {
+    try {
+      const googleIdToken = response.credential; // Récupérer le Google ID Token
+      console.log("Token Google reçu : ", googleIdToken);
+
+      // Envoie du token Google au backend
+      const backendResponse = await fetch('http://localhost:8081/api/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken: googleIdToken }), // Envoie du Google ID token
+      });
+
+      const data = await backendResponse.json();
+
+      if (backendResponse.ok) {
+        // Vous recevez votre JWT personnalisé ici
+        const { jwt } = data.jwt;
+
+        // Stockez le JWT dans localStorage pour les futures requêtes
+        localStorage.setItem('token', jwt);
+        setMessage('Connexion réussie avec Google !');
+      } else {
+        // Gestion des erreurs selon la réponse du serveur
+        const errorMessage = data.message || 'Échec de la connexion Google.';
+        setError(errorMessage);
+      }
+      setShowPopup(true);
+    } catch (error) {
+      console.error('Erreur lors de la connexion avec Google :', error);
+      setError('Une erreur s\'est produite avec Google.');
+      setShowPopup(true);
+    }
+  };
+
+  const handleGoogleFailure = (error) => {
+    console.error("Erreur lors de la connexion Google :", error);
+    setError('Connexion Google échouée.');
+    setShowPopup(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérifiez si les mots de passe correspondent avant d'envoyer
     if (formData.password !== formData.confirmPassword) {
       setError("Les mots de passe ne correspondent pas.");
-      setShowPopup(true); // Afficher la popup pour l'erreur de correspondance
+      setShowPopup(true);
       return;
     }
 
-    // Effacez les messages précédents
     setError('');
     setMessage('');
 
@@ -57,11 +100,10 @@ const Register = () => {
 
       if (response.ok) {
         setMessage(responseText || 'Inscription réussie !');
-        setShowPopup(true);
       } else {
         setError(responseText || 'Une erreur s\'est produite.');
-        setShowPopup(true);
       }
+      setShowPopup(true);
     } catch (error) {
       console.error('Erreur:', error);
       setError('Erreur de connexion au serveur.');
@@ -163,22 +205,21 @@ const Register = () => {
           </button>
         </form>
 
-        <p className="mt-4 text-center text-black">
-          Vous avez déjà un compte ?{' '}
-          <a href="/login" className="text-[#347928] hover:underline">
-            Se connecter
-          </a>
-        </p>
+        <div className="mt-4 text-center">
+          <GoogleLogin 
+            onSuccess={handleGoogleSuccess} 
+            onError={handleGoogleFailure} 
+          />
+        </div>
+
+        {showPopup && (
+          <Popup 
+            message={error || message} 
+            error={!!error} 
+            onClose={closePopup} 
+          />
+        )}
       </div>
-
-      {showPopup && (
-        <Popup 
-          message={error || message} 
-          error={!!error} 
-          onClose={closePopup} 
-        />
-)}
-
     </div>
   );
 };
