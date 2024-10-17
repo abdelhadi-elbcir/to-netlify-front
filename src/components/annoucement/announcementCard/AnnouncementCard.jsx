@@ -1,28 +1,28 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import "./AnnouncementCard.css";
-
 
 const AnnouncementCard = ({ image, title, duration, transport, familyPlan, rating, reviews, price }) => {
   return (
-    <div className="announcement-card">
-      <img src={image} alt={title} className="announcement-card__image" />
-      <h3 className="announcement-card__title">{title}</h3>
-      <div className="announcement-card__details">
-        <p>Duration: {duration}</p>
-        <p>{transport}</p>
-        <p>{familyPlan}</p>
-      </div>
-      <div className="announcement-card__rating">
-        {[...Array(5)].map((_, i) => (
-          <Star key={i} fill={i < Math.floor(rating) ? "#FFD700" : "none"} stroke="#FFD700" size={16} />
-        ))}
-        <span>{rating}</span>
-        <span className="announcement-card__reviews">({reviews} reviews)</span>
-      </div>
-      <div className="announcement-card__price">
-        ${price}
-        <span className="announcement-card__price-note">per person</span>
+    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out w-64 h-96 flex flex-col">
+      <img src={image} alt={title} className="w-full h-40 object-cover" />
+      <div className="p-4 flex flex-col flex-grow">
+        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">{title}</h3>
+        <div className="text-gray-600 text-sm mb-2 flex-grow">
+          <p className="line-clamp-1">Duration: {duration}</p>
+          <p className="line-clamp-1">{transport}</p>
+          <p className="line-clamp-1">{familyPlan}</p>
+        </div>
+        <div className="flex items-center text-sm mb-2">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} fill={i < Math.floor(rating) ? "#FFD700" : "none"} stroke="#FFD700" size={16} />
+          ))}
+          <span className="ml-2">{rating}</span>
+          <span className="ml-2 text-gray-500">({reviews} reviews)</span>
+        </div>
+        <div className="text-lg font-bold text-green-500">
+          ${price}
+          <span className="text-sm font-normal text-gray-500 ml-1">per person</span>
+        </div>
       </div>
     </div>
   );

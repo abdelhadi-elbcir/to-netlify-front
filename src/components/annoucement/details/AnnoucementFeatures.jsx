@@ -2,30 +2,31 @@ import React from 'react';
 import { Calendar } from 'lucide-react';
 
 const AnnouncementFeatures = () => {
+
   const features = [
     {
-      title: "Free Cancellation",
-      description: "Cancel up to 24 hours in advance to receive a full refund"
+      title: "Annulation gratuite",
+      description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet"
     },
     {
-      title: "Health Precautions",
-      description: "Special health and safety measures apply. Learn more"
+      title: "Précautions sanitaires",
+      description: "Des mesures particulières de santé et de sécurité s'appliquent. Apprendre encore plus"
     },
     {
-      title: "Mobile Ticket",
-      description: "Use your phone or print your voucher"
+      title: "Billet mobile",
+      description: "Utilisez votre téléphone ou imprimez votre bon"
     },
     {
-      title: "Duration",
-      description: "2 hours"
+      title: "Durée",
+      description: "2 heures"
     },
     {
-      title: "Skip the line",
-      description: "Avoid queues with priority access"
+      title: "Évitez la file d'attente",
+      description: "Évitez les files d'attente avec un accès prioritaire"
     },
     {
-      title: "Instant Confirmation",
-      description: "Receive immediate confirmation of your booking"
+      title: "Confirmation instantanée",
+      description: "Recevez une confirmation immédiate de votre réservation"
     }
   ];
 
@@ -34,7 +35,7 @@ const AnnouncementFeatures = () => {
       {features.map((feature, index) => (
         <div key={index} className="flex items-start">
           <div className="flex-shrink-0">
-            <Calendar className="h-6 w-6 text-teal-500" />
+            <Calendar className="h-6 w-6 text-primary" />
           </div>
           <div className="ml-3">
             <h3 className="text-lg font-medium text-gray-900">{feature.title}</h3>
@@ -44,6 +45,7 @@ const AnnouncementFeatures = () => {
       ))}
     </div>
   );
+
 };
 
 export default AnnouncementFeatures;

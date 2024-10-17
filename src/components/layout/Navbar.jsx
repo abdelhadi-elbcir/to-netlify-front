@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-[#347928] p-4 fixed top-0 left-0 w-full z-50 shadow-lg">
+    <nav className="p-4 fixed top-0 left-0 w-full z-50 bg-[rgba(0,0,0,0.3)] backdrop-blur-sm shadow-xl">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="text-white text-2xl font-bold transition duration-300 hover:text-[#C0EBA6]">
@@ -53,7 +53,7 @@ const Navbar = () => {
 
       {/* Menu for smaller screens (tablets and phones) */}
       <div
-        className={`md:hidden bg-[#347928] absolute top-16 left-0 w-full px-4 py-4 transition-transform duration-300 ease-in-out ${
+        className={`md:hidden bg-[rgba(0,0,0,0.3)]  absolute top-16 left-0 w-full px-4 py-4 transition-transform duration-300 ease-in-out ${
           isOpen ? 'block' : 'hidden'
         }`}
       >
