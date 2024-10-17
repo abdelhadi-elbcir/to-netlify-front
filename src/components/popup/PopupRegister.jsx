@@ -38,7 +38,7 @@ const Popup = ({ message, error, onClose, duration = 3000 }) => {
             className="absolute h-full bg-[#347928]"
             style={{
               width: `${(remainingTime / duration) * 100}%`,
-              transition: 'width 0.1s linear', // Transition fluide lors de la diminution
+              transition: 'width 0.1s linear',
             }}
           />
         </div>
