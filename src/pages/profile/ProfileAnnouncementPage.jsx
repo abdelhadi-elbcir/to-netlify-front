@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import AnnonceList from '../components/manageProfile/AnnonceList';
-import ActionButton from '../components/buttons/ActionButton';
-import Sidebar from '../components/manageProfile/Sidebar';
+import React, { useState,useEffect } from 'react';
+import AnnonceList from '../../components/manageProfile/AnnonceList';
+import ActionButton from '../../components/buttons/ActionButton';
+import Sidebar from '../../components/manageProfile/Sidebar';
 const ProfileAnnouncementPage = () => {
 
   const [annonces, setAnnonces] = useState([]);
