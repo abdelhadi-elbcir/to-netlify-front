@@ -2,10 +2,10 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home/Home';
 import AnnoucementDetails from './components/annoucement/AnnoucementDetails';
-import Register from './pages/register';
-import Login from './pages/Login';
-import ProfileInformationPage from './pages/ProfileInformationPage';
-import ProfileAnnouncementPage from './pages/ProfileAnnouncementPage';
+import Register from './pages/auth/register';
+import Login from './pages/auth/Login';
+import ProfileInformationPage from './pages/profile/ProfileInformationPage';
+import ProfileAnnouncementPage from './pages/profile/ProfileAnnouncementPage';
 import AjouterAnnoncePage from './pages/AjouterAnnoncePage';
 const AppRoutes = () => {
   return (

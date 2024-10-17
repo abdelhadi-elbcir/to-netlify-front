@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/manageProfile/Sidebar';
-import FormInput from '../components/manageProfile/FormInput';
-import TextareaInput from '../components/manageProfile/TextareaInput';
-import SelectInput from '../components/manageProfile/SelectInput';
-import ActionButton from '../components/buttons/ActionButton';
+import Sidebar from '../../components/manageProfile/Sidebar';
+import FormInput from '../../components/manageProfile/FormInput';
+import TextareaInput from '../../components/manageProfile/TextareaInput';
+import SelectInput from '../../components/manageProfile/SelectInput';
+import ActionButton from '../../components/buttons/ActionButton';
 
 const ProfileInformationPage = () => {
   const [profileData, setProfileData] = useState({

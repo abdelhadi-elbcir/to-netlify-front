@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import AnnouncementCard from '../announcementCard/AnnouncementCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import "./AnnouncementList.css"
 
 const announcements = [
   {
@@ -69,6 +68,9 @@ const announcements = [
 const AnnouncementList = () => {
   const scrollRef = useRef(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   const cardWidth = 270; // Width of each card + gap
   const scrollAmount = cardWidth * 3; // Scroll 3 cards at a time
@@ -102,30 +104,67 @@ const AnnouncementList = () => {
     return () => clearInterval(interval);
   }, [scrollPosition, handleScroll]);
 
-  const handleSwipe = (e) => {
-    const container = scrollRef.current;
-    const scrollWidth = container.scrollWidth - container.clientWidth;
-    const newPosition = Math.min(Math.max(0, e.target.scrollLeft), scrollWidth);
-    setScrollPosition(newPosition);
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll speed
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+    setScrollPosition(scrollRef.current.scrollLeft);
   };
 
   return (
-    <div className="announcement-list">
-      <h2 className="announcement-list__title">Featured Destinations</h2>
-      <p className="announcement-list__description">
+    <div className="max-w-5xl mx-auto p-5">
+      <h2 className="text-4xl font-bold text-gray-800 mb-4">Featured Destinations</h2>
+      <p className="text-gray-600 mb-8">
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
       </p>
-      <div className="announcement-list__grid-container">
-        <button className="announcement-list__nav-btn announcement-list__nav-btn--left" onClick={() => handleScroll('left')}>
-          <ChevronLeft />
+      <div className="relative">
+        <button
+          className="absolute top-1/2 transform -translate-y-1/2 left-2 bg-white bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-100 z-10"
+          onClick={() => handleScroll('left')}
+        >
+          <ChevronLeft className="w-6 h-6 text-gray-800" />
         </button>
-        <div className="announcement-list__grid" ref={scrollRef} onScroll={handleSwipe}>
+
+        <div
+          className="flex gap-5 overflow-x-auto scroll-smooth p-5 cursor-grab active:cursor-grabbing"
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
           {announcements.map((announcement, index) => (
-            <AnnouncementCard key={index} {...announcement} />
+            <div key={index} className="flex-shrink-0 w-[270px]">
+              <AnnouncementCard {...announcement} />
+            </div>
           ))}
         </div>
-        <button className="announcement-list__nav-btn announcement-list__nav-btn--right" onClick={() => handleScroll('right')}>
-          <ChevronRight />
+
+        <button
+          className="absolute top-1/2 transform -translate-y-1/2 right-2 bg-white bg-opacity-80 rounded-full w-10 h-10 flex items-center justify-center hover:bg-opacity-100 z-10"
+          onClick={() => handleScroll('right')}
+        >
+          <ChevronRight className="w-6 h-6 text-gray-800" />
         </button>
       </div>
     </div>
