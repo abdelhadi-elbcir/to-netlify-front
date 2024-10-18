@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { FaUser, FaHistory, FaBell, FaEnvelope } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; //
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
-
   const [activeItem, setActiveItem] = useState(''); 
   const navigate = useNavigate(); 
 
@@ -14,7 +13,6 @@ const Sidebar = () => {
     } else if (item === 'profile') {
       navigate('/profile'); 
     }
-
   };
 
   return (
@@ -24,7 +22,7 @@ const Sidebar = () => {
         <img
           src="https://via.placeholder.com/100" // Remplacez par l'image de l'utilisateur
           alt="Profil de l'utilisateur"
-          className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-[#347928]"
+          className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary"
         />
         <h3 className="text-lg font-semibold text-gray-800">Masum Rana</h3>
         <p className="text-gray-500">Gothenburg</p>
@@ -36,8 +34,8 @@ const Sidebar = () => {
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
             activeItem === 'profile'
-              ? 'bg-[#347928] text-white'
-              : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
+              ? 'bg-primary text-white'
+              : 'hover:bg-secondary hover:text-highlight text-gray-700'
           }`}
           onClick={() => handleNavigation('profile')}
         >
@@ -47,8 +45,8 @@ const Sidebar = () => {
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
             activeItem === 'booking'
-              ? 'bg-[#347928] text-white'
-              : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
+              ? 'bg-primary text-white'
+              : 'hover:bg-secondary hover:text-highlight text-gray-700'
           }`}
           onClick={() => handleNavigation('reservations')}
         >
@@ -58,19 +56,19 @@ const Sidebar = () => {
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
             activeItem === 'notification'
-              ? 'bg-[#347928] text-white'
-              : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
+              ? 'bg-primary text-white'
+              : 'hover:bg-secondary hover:text-highlight text-gray-700'
           }`}
           onClick={() => handleNavigation('notification')}
         >
           <FaEnvelope />
-          <span className="font-medium">notification</span>
+          <span className="font-medium">Notifications</span>
         </li>
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
             activeItem === 'announcements'
-              ? 'bg-[#347928] text-white'
-              : 'hover:bg-[#C0EBA6] hover:text-[#347928] text-gray-700'
+              ? 'bg-primary text-white'
+              : 'hover:bg-secondary hover:text-highlight text-gray-700'
           }`}
           onClick={() => handleNavigation('announcements')}
         >

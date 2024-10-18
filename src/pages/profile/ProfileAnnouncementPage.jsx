@@ -21,14 +21,14 @@ const ProfileAnnouncementPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white ">
+    <div className="min-h-screen flex justify-center items-center bg-white mb-[40px] pt-[64px] ">
       <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
         {/* Barre latérale */}
         <Sidebar />
 
         <div className="w-3/4 p-10">
           {/* En-tête */}
-          <h2 className="text-3xl font-semibold text-[#347928] mb-8">Mes Annonces</h2>
+          <h2 className="text-3xl font-semibold text-primary mb-8">Mes Annonces</h2>
 
           <AnnonceList annonces={annonces} />
           <ActionButton

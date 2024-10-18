@@ -14,8 +14,8 @@ const Navbar = () => {
     <nav className="p-4 fixed top-0 left-0 w-full z-50 bg-[rgba(0,0,0,0.3)] backdrop-blur-sm shadow-xl">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-2xl font-bold transition duration-300 hover:text-[#C0EBA6]">
-          <a href="#">Tripy.ma</a>
+        <div className="text-white text-2xl font-bold transition duration-300 hover:text-primary">
+          <a href="/">Tripy.ma</a>
         </div>
 
         {/* Hamburger Icon for small screens */}
@@ -28,23 +28,23 @@ const Navbar = () => {
           <ul className="flex space-x-6 text-[#FFFBE6]">
             <li className="flex items-center">
               <FaHome className="mr-1" />
-              <a href="#" className="hover:text-[#C0EBA6]">Accueil</a>
+              <a href="/" className="hover:text-primary">Accueil</a>
             </li>
             <li className="flex items-center">
               <FaInfoCircle className="mr-1" />
-              <a href="#" className="hover:text-[#C0EBA6]">À propos</a>
+              <a href="/" className="hover:text-primary">À propos</a>
             </li>
             <li className="flex items-center">
               <FaMapMarkedAlt className="mr-1" />
-              <a href="#" className="hover:text-[#C0EBA6]">Destinations populaires</a>
+              <a href="/" className="hover:text-primary">Destinations populaires</a>
             </li>
             <li className="flex items-center">
               <FaBullhorn className="mr-1" />
-              <a href="#" className="hover:text-[#C0EBA6]">Annonces</a>
+              <a href="/" className="hover:text-primary">Annonces</a>
             </li>
             <li className="flex items-center">
               <FaEnvelope className="mr-1" />
-              <a href="#" className="hover:text-[#C0EBA6]">Contact</a>
+              <a href="/" className="hover:text-primary">Contact</a>
             </li>
           </ul>
           <Button href="/login" label="Login" />
@@ -57,26 +57,26 @@ const Navbar = () => {
           isOpen ? 'block' : 'hidden'
         }`}
       >
-        <ul className="flex flex-col space-y-4 text-[#FFFBE6]">
+        <ul className="flex flex-col space-y-4 text-primary">
           <li className="flex items-center justify-start">
             <FaHome className="mr-1" />
-            <a href="#" className="hover:text-[#C0EBA6]">Accueil</a>
+            <a href="#" className="hover:text-primary">Accueil</a>
           </li>
           <li className="flex items-center justify-start">
             <FaInfoCircle className="mr-1" />
-            <a href="#" className="hover:text-[#C0EBA6]">À propos</a>
+            <a href="#" className="hover:text-primary">À propos</a>
           </li>
           <li className="flex items-center justify-start">
             <FaMapMarkedAlt className="mr-1" />
-            <a href="#" className="hover:text-[#C0EBA6]">Destinations populaires</a>
+            <a href="#" className="hover:text-primary">Destinations populaires</a>
           </li>
           <li className="flex items-center justify-start">
             <FaBullhorn className="mr-1" />
-            <a href="#" className="hover:text-[#C0EBA6]">Annonces</a>
+            <a href="#" className="hover:text-primary">Annonces</a>
           </li>
           <li className="flex items-center justify-start">
             <FaEnvelope className="mr-1" />
-            <a href="#" className="hover:text-[#C0EBA6]">Contact</a>
+            <a href="#" className="hover:text-primary">Contact</a>
           </li>
         </ul>
         <div className="mt-4">

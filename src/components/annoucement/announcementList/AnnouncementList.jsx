@@ -128,9 +128,9 @@ const AnnouncementList = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-5">
-      <h2 className="text-4xl font-bold text-gray-800 mb-4">Featured Destinations</h2>
-      <p className="text-gray-600 mb-8">
+    <div className="max-w-6xl mx-auto p-5">
+      <h2 className="text-4xl text-center font-bold text-primary mb-4">Featured Destinations</h2>
+      <p className="text-gray-600 mb-8 text-center">
         Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.
       </p>
       <div className="relative">
@@ -154,7 +154,7 @@ const AnnouncementList = () => {
           }}
         >
           {announcements.map((announcement, index) => (
-            <div key={index} className="flex-shrink-0 w-[270px]">
+            <div key={index} className="flex-shrink-0 w-[254px]">
               <AnnouncementCard {...announcement} />
             </div>
           ))}

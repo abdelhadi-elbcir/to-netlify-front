@@ -1,44 +1,85 @@
 import React, { useEffect, useState } from 'react';
-import { FaTimes } from 'react-icons/fa';
 
 const Popup = ({ message, error, onClose, duration = 3000 }) => {
   const [remainingTime, setRemainingTime] = useState(duration);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setRemainingTime((prev) => {
         if (prev <= 100) {
           clearInterval(timer);
-          onClose(); // Ferme le popup lorsque le timer atteint 0
+          setIsVisible(false);
+          setTimeout(onClose, 300);
           return 0;
         }
-        return prev - 100; // Diminue le temps restant de 100ms
+        return prev - 100;
       });
-    }, 100); // Mise à jour toutes les 100 ms
+    }, 100);
 
     return () => clearInterval(timer);
   }, [duration, onClose]);
 
+  if (!isVisible) return null;
+
   return (
-    <div className="fixed top-5 right-10 z-50 flex items-center justify-center">
-      <div
-        className={`bg-white p-4 rounded-lg shadow-lg ${error ? 'border-red-500' : 'border-green-500'} border relative`}
-      >
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-[#347928]">
+    <div style={{
+      position: 'fixed',
+      top: '20px',
+      right: '20px',
+      maxWidth: '300px',
+      width: '100%',
+      zIndex: 50,
+      opacity: isVisible ? 1 : 0,
+      transition: 'opacity 300ms ease-in-out'
+    }}>
+      <div style={{
+        backgroundColor: error ? '#f8f9fa' : '#f8f9fa',
+        borderColor: error ? 'red' : 'primary',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '6px',
+        padding: '16px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+      }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '8px'
+        }}>
+          <span style={{
+            fontWeight: 'bold',
+            color: error ? '#red' : 'primary'
+          }}>
             {error ? 'Erreur' : 'Succès'}
-          </h3>
-          <div onClick={onClose} className="cursor-pointer">
-            <FaTimes className="text-[#347928] hover:text-red-500 transition duration-200" size={20} />
-          </div>
-        </div>
-        <p className="mt-2 text-center">{message}</p>
-        <div className="relative h-1 bg-gray-200 mt-2">
-          <div
-            className="absolute h-full bg-[#347928]"
+          </span>
+          <button
+            onClick={() => setIsVisible(false)}
             style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '18px',
+              color: error ? 'red' : 'primary'
+            }}
+          >
+            ×
+          </button>
+        </div>
+        <p style={{ marginBottom: '12px' }}>{message}</p>
+        <div style={{
+          height: '4px',
+          backgroundColor: '#E5E7EB',
+          borderRadius: '2px',
+          overflow: 'hidden'
+        }}>
+          <div
+            style={{
+              height: '100%',
+              backgroundColor: error ? '#DC2626' : '#0284C7',
               width: `${(remainingTime / duration) * 100}%`,
-              transition: 'width 0.1s linear',
+              transition: 'width 0.1s linear'
             }}
           />
         </div>

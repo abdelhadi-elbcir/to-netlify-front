@@ -5,9 +5,10 @@ import Register from './pages/auth/register';
 import Login from './pages/auth/Login';
 import ProfileInformationPage from './pages/profile/ProfileInformationPage';
 import ProfileAnnouncementPage from './pages/profile/ProfileAnnouncementPage';
-import AjouterAnnoncePage from './pages/AjouterAnnoncePage';
+import AjouterAnnoncePage from './pages//profile/AjouterAnnoncePage';
 import AnnoucementDetailsPage from './pages/annoucement/AnnoucementDetailsPage';
-import ProfileBookingsPage from './pages/profile/booking/ProfileBookingsPage';
+import ProfileBookingsPage from './pages/profile/ProfileBookingsPage';
+import Contact from './pages/contact/Contact';
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path='/profile/announcements' element={<ProfileAnnouncementPage/>}/>
       <Route path='/profile/reservations' element={<ProfileBookingsPage/>}/>
       <Route path="/add-annonce" element={<AjouterAnnoncePage />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 };

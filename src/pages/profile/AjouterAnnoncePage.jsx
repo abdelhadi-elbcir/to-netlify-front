@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/manageProfile/Sidebar';
-import ActionButton from '../components/buttons/ActionButton';
-import FormInput from '../components/manageProfile/FormInput';
-import TextareaInput from '../components/manageProfile/TextareaInput';
-import SelectInput from '../components/manageProfile/SelectInput';
+import Sidebar from '../../components/manageProfile/Sidebar';
+import ActionButton from '../../components/buttons/ActionButton';
+import FormInput from '../../components/manageProfile/FormInput';
+import TextareaInput from '../../components/manageProfile/TextareaInput';
+import SelectInput from '../../components/manageProfile/SelectInput';
 
 const AjouterAnnoncePage = () => {
   const [formData, setFormData] = useState({
@@ -33,14 +33,14 @@ const AjouterAnnoncePage = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white">
+    <div className="min-h-screen flex justify-center items-center bg-white mb-[40px] pt-[64px]">
       <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
         {/* Barre latérale */}
         <Sidebar />
         
         <div className="w-3/4 p-10">
           {/* En-tête */}
-          <h2 className="text-3xl font-semibold text-[#347928] mb-8">Ajouter une Annonce</h2>
+          <h2 className="text-3xl font-semibold text-primary mb-8">Ajouter une Annonce</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <FormInput 

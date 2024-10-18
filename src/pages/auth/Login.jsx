@@ -55,7 +55,6 @@ const Login = () => {
       // Reset the form
       setFormData({ username: '', password: '' });
 
-      // Here, you can redirect the user or perform other actions after login
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       setPopupMessage("Échec de la connexion. Vérifiez vos informations d'identification.");
@@ -70,19 +69,19 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center h-screen bg-white">
       <div className="w-full max-w-md bg-[#f8f9fa] p-8 shadow-lg rounded-lg">
-        <h2 className="text-2xl font-semibold text-[#347928] mb-6 text-center">Se connecter</h2>
+        <h2 className="text-2xl font-semibold text-primary mb-6 text-center">Se connecter</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <div className="flex items-center mb-1">
-              <FaEnvelope className="mr-2 text-[#347928]" />
-              <label className="text-[#347928]">UserName</label>
+              <FaEnvelope className="mr-2 text-primary" />
+              <label className="text-primary">UserName</label>
             </div>
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-primary"
               placeholder="Entrez votre username"
               required
             />
@@ -90,15 +89,15 @@ const Login = () => {
 
           <div className="mb-4">
             <div className="flex items-center mb-1">
-              <FaLock className="mr-2 text-[#347928]" />
-              <label className="text-[#347928]">Mot de Passe</label>
+              <FaLock className="mr-2 text-primary" />
+              <label className="text-primary">Mot de Passe</label>
             </div>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#347928]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg text-primary"
               placeholder="Entrez votre mot de passe"
               required
             />
@@ -106,14 +105,14 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#347928] text-[#FFFBE6] px-4 py-2 rounded-lg font-bold hover:bg-[#C0EBA6] transition duration-300"
+            className="w-full bg-primary text-highlight px-4 py-2 rounded-lg font-bold hover:bg-secondary transition duration-300"
           >
             Se connecter
           </button>
         </form>
         <p className="mt-4 text-center text-black">
           Vous n'avez pas de compte ?{' '}
-          <a href="/register" className="text-[#347928] hover:underline">
+          <a href="/register" className="text-primary hover:underline">
             Créez votre compte
           </a>
         </p>

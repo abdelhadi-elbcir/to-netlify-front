@@ -15,7 +15,7 @@ const ActionButton = ({ href, label, isNavigable }) => {
   return (
     <button
       onClick={handleClick}
-      className="bg-[#347928] text-[#FFFBE6] py-3 px-14 font-bold shadow-md hover:bg-[#C0EBA6] transition-colors duration-200"
+      className="bg-primary text-[#FFFBE6] py-3 px-14 font-bold shadow-md hover:bg-secondary transition-colors duration-200"
     >
       {label}
     </button>

@@ -16,7 +16,7 @@ const AnnonceItem = ({ annonce }) => {
         {/* Lien vers le détail de l'annonce */}
         <a 
           href={`/profile/announcements/${annonce.id}`} 
-          className="text-[#347928] hover:underline mt-2 inline-block"
+          className="text-secondary hover:underline mt-2 inline-block"
         >
           Voir plus
         </a>
