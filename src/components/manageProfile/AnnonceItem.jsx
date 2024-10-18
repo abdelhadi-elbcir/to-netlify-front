@@ -21,7 +21,7 @@ const AnnonceItem = ({ annonce }) => {
           Voir plus
         </a>
       </div>
-      <p className="text-gray-500 font-bold text-right">{annonce.price} €</p>
+      <p className="text-gray-500 font-bold text-right">{annonce.budget} €</p>
     </div>
   );
 };
