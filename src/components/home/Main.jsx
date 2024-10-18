@@ -1,5 +1,4 @@
 import SearchFrom from "../search/SearchForm";
-import heroImg from "../../assets/images/hero.png";
 
 const MainSection = () => {
 
@@ -9,7 +8,7 @@ const MainSection = () => {
 
       {/* Hero Section */}
       <div className="relative h-screen ">
-        <img src={heroImg} alt="Beach scenery" className="w-full h-full object-cover" />
+        <img src={`${process.env.PUBLIC_URL}/assets/images/hero.png`}  alt="Beach scenery" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black bg-opacity-10" />
         <div className="absolute inset-0 flex flex-col justify-center items-center text-center p-4">
           <h1 className="text-3xl md:text-5xl font-bold mb-4">Tous nos voyages</h1>

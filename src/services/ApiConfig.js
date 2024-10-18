@@ -12,9 +12,9 @@ const apiClient = axios.create({
 // Add a request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    // You can add authentication headers here if needed
     const token = localStorage.getItem('accessToken');
     if (token) {
+   
       config.headers['Authorization'] = 'Bearer ' + token;
     }
     return config;
@@ -23,6 +23,7 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
 
 // Add a response interceptor
 apiClient.interceptors.response.use(

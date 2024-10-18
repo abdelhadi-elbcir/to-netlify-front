@@ -1,48 +1,91 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Sidebar from '../../components/manageProfile/Sidebar';
 import ActionButton from '../../components/buttons/ActionButton';
 import FormInput from '../../components/manageProfile/FormInput';
 import TextareaInput from '../../components/manageProfile/TextareaInput';
 import SelectInput from '../../components/manageProfile/SelectInput';
-
+import { createAnnouncement } from '../../services/AnnouncementService';
+import Popup from '../../components/popup/PopupRegister';
+import { useNavigate } from 'react-router-dom';
 const AjouterAnnoncePage = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    price: '',
-    Type: '',
-    nbPersonnes: '',
-    dateTrip: '',
+    type: '',
+    nbOfPeople: '',
+    tripDate: '',
     budget: '',
-    duree: '',
+    duration: '',
     destination: '',
-  });
+    status: 'APPROVED'
+});
 
+  const [Message, setMessage] = useState('');
+  const [showPopup,setShowPopup] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
+        ...prevData,
+        [name]: name === 'nbOfPeople' || name === 'budget' || name === 'duration' ? Number(value) : value,
     }));
+};
+
+useEffect(() => {
+  if (Message) {
+    setShowPopup(true);  
+  }
+}, [Message]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(formData);
+      // Appel à la fonction d'API pour créer une annonce
+      const response = await createAnnouncement(formData);
+      setMessage('Annonce créée avec succès !');
+      setTimeout(() => {
+        navigate('/profile/announcements');
+      }, 1000); 
+      
+    } catch (error) {
+      setMessage('Erreur lors de la création de l\'annonce.');
+      setIsError(true)
+    }
+  };
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Ajoutez ici votre logique pour soumettre l'annonce
-    console.log('Annonce soumise:', formData);
-  };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white mb-[40px] pt-[64px]">
-      <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
-        {/* Barre latérale */}
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen flex justify-center items-center bg-white  mb-[40px] pt-[64px]"
+    >
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex overflow-hidden">
         <Sidebar />
         
         <div className="w-3/4 p-10">
-          {/* En-tête */}
-          <h2 className="text-3xl font-semibold text-primary mb-8">Ajouter une Annonce</h2>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <motion.h2 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl font-semibold text-primary mb-8"
+          >
+            Ajouter une Annonce
+          </motion.h2>
+          <motion.form 
+            onSubmit={handleSubmit} 
+            className="space-y-4"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
             <FormInput 
               label="Titre" 
               name="title" 
@@ -59,38 +102,42 @@ const AjouterAnnoncePage = () => {
               rows={4} 
               required 
             />
-            <FormInput 
-              label="Nombre de Personnes" 
-              name="nbPersonnes" 
-              value={formData.nbPersonnes} 
-              handleChange={handleChange} 
-              type="number" 
-              required 
-            />
-            <FormInput 
-              label="Date du Voyage" 
-              name="dateTrip" 
-              value={formData.dateTrip} 
-              handleChange={handleChange} 
-              type="date" 
-              required 
-            />
-            <FormInput 
-              label="Budget" 
-              name="budget" 
-              value={formData.budget} 
-              handleChange={handleChange} 
-              type="number" 
-              required 
-            />
-            <FormInput 
-              label="Durée" 
-              name="duree" 
-              value={formData.duree} 
-              handleChange={handleChange} 
-              placeholder="Durée du trip en jours" 
-              required 
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput 
+                label="Nombre de Personnes" 
+                name="nbOfPeople" 
+                value={formData.nbOfPeople} 
+                handleChange={handleChange} 
+                type="number" 
+                required 
+              />
+              <FormInput 
+                label="Date du Voyage" 
+                name="tripDate" 
+                value={formData.tripDate} 
+                handleChange={handleChange} 
+                type="date" 
+                required 
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput 
+                label="Budget" 
+                name="budget" 
+                value={formData.budget} 
+                handleChange={handleChange} 
+                type="number" 
+                required 
+              />
+              <FormInput 
+                label="Durée (jours)" 
+                name="duration" 
+                value={formData.duration} 
+                handleChange={handleChange} 
+                type="number"
+                required 
+              />
+            </div>
             <FormInput 
               label="Destination" 
               name="destination" 
@@ -100,8 +147,8 @@ const AjouterAnnoncePage = () => {
             />
             <SelectInput 
               label="Type d'annonce" 
-              name="Type" 
-              value={formData.Type} 
+              name="type" 
+              value={formData.type} 
               handleChange={handleChange} 
               options={[
                 { label: 'Sélectionnez le type d\'annonce ', value: '' },
@@ -109,15 +156,29 @@ const AjouterAnnoncePage = () => {
                 { label: 'VOYAGE', value: 'VOYAGE' },
               ]}
             />
-            <ActionButton 
-              href="" 
-              label="Sauvegarder" 
-              isNavigable={true} 
-            />
-          </form>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <ActionButton 
+                href="" 
+                label="Sauvegarder" 
+                isNavigable={true}
+                className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
+              />
+            </motion.div>
+          </motion.form>
         </div>
+        {showPopup && (
+        <Popup 
+          message={Message} 
+          error={isError} 
+          onClose={closePopup} 
+          duration={3000} 
+        />
+      )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
