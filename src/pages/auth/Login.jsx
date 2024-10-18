@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../state/userSlice';
 import Popup from '../../components/popup/PopupRegister';
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -15,7 +15,7 @@ const Login = () => {
   const [isError, setIsError] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (popupMessage) {
       setShowPopup(true);  
@@ -38,15 +38,13 @@ const Login = () => {
         username: formData.username,
         password: formData.password,
       });
+ 
+      const name = formData.username;
 
       const { accessToken, refreshToken } = response.data;
 
-      // Save tokens in local storage
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-
       // Update Redux store
-      dispatch(setUser({ accessToken, refreshToken }));
+      dispatch(setUser({ accessToken, refreshToken, name }));
 
       // Set success message for popup
       setPopupMessage('Connexion réussie !');
@@ -54,7 +52,7 @@ const Login = () => {
 
       // Reset the form
       setFormData({ username: '', password: '' });
-
+      navigate('/')
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       setPopupMessage("Échec de la connexion. Vérifiez vos informations d'identification.");
