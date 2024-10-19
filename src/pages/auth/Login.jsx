@@ -41,10 +41,10 @@ const Login = () => {
  
       const name = formData.username;
 
-      const { accessToken, refreshToken } = response.data;
+      const { accessToken, refreshToken, user_id } = response.data;
 
       // Update Redux store
-      dispatch(setUser({ accessToken, refreshToken, name }));
+      dispatch(setUser({ accessToken, refreshToken, name, user_id },));
 
       // Set success message for popup
       setPopupMessage('Connexion réussie !');
@@ -61,7 +61,7 @@ const Login = () => {
   };
 
   const closePopup = () => {
-    setShowPopup(false);  // Close the popup
+    setShowPopup(false); 
   };
 
   return (
@@ -116,7 +116,6 @@ const Login = () => {
         </p>
       </div>
 
-      {/* Popup for messages */}
       {showPopup && (
         <Popup 
           message={popupMessage} 

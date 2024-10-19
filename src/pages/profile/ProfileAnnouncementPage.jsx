@@ -4,24 +4,26 @@ import AnnonceList from '../../components/manageProfile/AnnonceList';
 import ActionButton from '../../components/buttons/ActionButton';
 import Sidebar from '../../components/manageProfile/Sidebar';
 import { getAllAnnouncementsByUser } from '../../services/AnnouncementService'; // Assure-toi que le chemin d'importation est correct
-
+import { useSelector } from 'react-redux';
 const ProfileAnnouncementPage = () => {
   const [annonces, setAnnonces] = useState([]);
   const [error, setError] = useState(null); // État pour gérer les erreurs
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     const fetchAnnonces = async () => {
-      try {
-        const response = await getAllAnnouncementsByUser(); // Appel de l'API
-        setAnnonces(response);
-      } catch (error) {
-        setError("Erreur lors de la récupération des annonces."); // Gestion des erreurs
-        console.error("Error fetching announcements:", error);
-      }
+        try {
+          const response = await getAllAnnouncementsByUser(user.user_id); 
+          setAnnonces(response); 
+        } catch (error) {
+          setError("Erreur lors de la récupération des annonces."); 
+          console.error("Error fetching announcements:", error);
+        }
+      
     };
 
-    fetchAnnonces();
-  }, []);
+    fetchAnnonces(); 
+  }, [user]);
 
   return (
     <motion.div 

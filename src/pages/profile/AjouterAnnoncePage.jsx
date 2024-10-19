@@ -8,7 +8,14 @@ import SelectInput from '../../components/manageProfile/SelectInput';
 import { createAnnouncement } from '../../services/AnnouncementService';
 import Popup from '../../components/popup/PopupRegister';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const AjouterAnnoncePage = () => {
+  
+  const user = useSelector(state => state.user);
+  const [Message, setMessage] = useState('');
+  const [showPopup,setShowPopup] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -18,13 +25,9 @@ const AjouterAnnoncePage = () => {
     budget: '',
     duration: '',
     destination: '',
-    status: 'APPROVED'
+    status: 'APPROVED',
+    user_id: user.user_id,
 });
-
-  const [Message, setMessage] = useState('');
-  const [showPopup,setShowPopup] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({

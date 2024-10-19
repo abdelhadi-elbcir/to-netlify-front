@@ -84,9 +84,10 @@ export const changeAnnouncementStatus = async (id, status) => {
 };
 
 // Function to get all announcements by User
-export const getAllAnnouncementsByUser = async () => {
+export const getAllAnnouncementsByUser = async (user_id) => {
   try {
-    const response = await apiClient.get(`${API_URL}/all`);
+    const response = await apiClient.get(`${API_URL}/all/${user_id}`);
+    console.log(user_id)
     return response.data;
   } catch (error) {
     console.error("Error fetching announcements:", error);
