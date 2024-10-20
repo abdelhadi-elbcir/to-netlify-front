@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar } from 'lucide-react';
+import { Calendar, CheckCheck, Clock, DollarSign, LocateIcon, User } from 'lucide-react';
 
 const AnnouncementFeatures = ({announcement}) => {
 
@@ -7,17 +7,17 @@ const AnnouncementFeatures = ({announcement}) => {
     {
       title: "Annulation gratuite",
       description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet",
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      icon : <CheckCheck className="h-6 w-6 text-primary" />
     },
     {
       title: "Nombre de personnes",
       description: announcement?.nbOfPeople,
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      icon : <User className="h-6 w-6 text-primary" />
     },
     {
       title: "La date de départ",
       description: announcement?.tripDate,
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      icon : <Clock className="h-6 w-6 text-primary" />
     },
     {
       title: "duration",
@@ -27,12 +27,12 @@ const AnnouncementFeatures = ({announcement}) => {
     {
       title: "Budget",
       description: announcement?.budget + " MAD",
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      icon : <DollarSign className="h-6 w-6 text-primary" />
     },
     {
       title: "Destination",
       description: announcement?.destination,
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      icon : <LocateIcon className="h-6 w-6 text-primary" />
     }
   ];
 
