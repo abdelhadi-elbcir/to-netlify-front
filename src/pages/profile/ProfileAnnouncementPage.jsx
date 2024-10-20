@@ -71,7 +71,7 @@ const ProfileAnnouncementPage = () => {
             className="mt-8"
           >
             <ActionButton
-              href="/add-annonce"
+              href="/profile/add-annonce"
               label="Ajouter une annonce"
               isNavigable={true}
               className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"

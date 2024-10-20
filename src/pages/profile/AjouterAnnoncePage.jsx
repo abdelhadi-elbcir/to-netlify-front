@@ -9,11 +9,11 @@ import { createAnnouncement } from '../../services/AnnouncementService';
 import Popup from '../../components/popup/PopupRegister';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 const AjouterAnnoncePage = () => {
-  
   const user = useSelector(state => state.user);
   const [Message, setMessage] = useState('');
-  const [showPopup,setShowPopup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -27,52 +27,64 @@ const AjouterAnnoncePage = () => {
     destination: '',
     status: 'APPROVED',
     user_id: user.user_id,
-});
+  });
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
-        ...prevData,
-        [name]: name === 'nbOfPeople' || name === 'budget' || name === 'duration' ? Number(value) : value,
+      ...prevData,
+      [name]: name === 'nbOfPeople' || name === 'budget' || name === 'duration' ? Number(value) : value,
     }));
-};
+  };
 
-useEffect(() => {
-  if (Message) {
-    setShowPopup(true);  
-  }
-}, [Message]);
+  useEffect(() => {
+    if (Message) {
+      setShowPopup(true);  
+    }
+  }, [Message]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData);
-      // Appel à la fonction d'API pour créer une annonce
       const response = await createAnnouncement(formData);
-      setMessage('Annonce créée avec succès !');
-      setTimeout(() => {
-        navigate('/profile/announcements');
-      }, 1000); 
-      
+      const announcementId = extractAnnouncementId(response);
+  
+      if (announcementId) {
+        setMessage('Annonce créée avec succès !');
+        setTimeout(() => {
+          navigate(`/profile/announcements/${announcementId}/add-stops`);
+        }, 1000);
+      } else {
+        console.error('L\'ID de l\'annonce n\'a pas pu être extrait.');
+      }
     } catch (error) {
+      console.error('Erreur lors de la création de l\'annonce:', error);
       setMessage('Erreur lors de la création de l\'annonce.');
-      setIsError(true)
+      setIsError(true);
     }
   };
+  
+  
+  
+  const extractAnnouncementId = (message) => {
+    const match = message.match(/ID:\s*(\d+)/);
+    return match ? match[1] : null; 
+  };
+  
+
   const closePopup = () => {
     setShowPopup(false);
   };
-
 
   return (
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen flex justify-center items-center bg-white  mb-[40px] pt-[64px]"
+      className="min-h-screen flex justify-center items-center bg-white mb-[40px] pt-[64px]"
     >
       <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex overflow-hidden">
         <Sidebar />
-        
         <div className="w-3/4 p-10">
           <motion.h2 
             initial={{ y: -20, opacity: 0 }}
@@ -165,7 +177,7 @@ useEffect(() => {
             >
               <ActionButton 
                 href="" 
-                label="Sauvegarder" 
+                label="Suivant" 
                 isNavigable={true}
                 className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
               />
@@ -173,13 +185,13 @@ useEffect(() => {
           </motion.form>
         </div>
         {showPopup && (
-        <Popup 
-          message={Message} 
-          error={isError} 
-          onClose={closePopup} 
-          duration={3000} 
-        />
-      )}
+          <Popup 
+            message={Message} 
+            error={isError} 
+            onClose={closePopup} 
+            duration={3000} 
+          />
+        )}
       </div>
     </motion.div>
   );

@@ -42,8 +42,8 @@ const Navbar = () => {
           {isOpen ? <FaTimes /> : <FaBars />}
         </div>
 
-        <div className="hidden md:flex items-center space-x-6">
-          <ul className="flex space-x-6 text-[#FFFBE6]">
+        <div className={`md:flex items-center space-x-6 ${isOpen ? 'flex' : 'hidden'} absolute top-16 left-0 w-full bg-[rgba(0,0,0,0.5)] md:static md:bg-transparent md:w-auto md:top-auto md:translate-x-0 transition-all duration-300`}>
+          <ul className="flex flex-col md:flex-row md:space-x-6 text-[#FFFBE6] md:space-y-0 space-y-2 p-4 md:p-0">
             <li className="flex items-center">
               <FaHome className="mr-1" />
               <a href="/" className="hover:text-primary">Accueil</a>

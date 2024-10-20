@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice.js'; 
 
-// Fonction pour charger les données utilisateur depuis le localStorage
+// Fonction pour charger les données utilisateur depuis le localStorage lors de demarrage
 const loadUserFromLocalStorage = () => {
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');

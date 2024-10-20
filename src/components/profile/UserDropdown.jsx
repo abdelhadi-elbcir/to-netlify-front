@@ -25,7 +25,7 @@ const UserDropdown = ({ user, onClose }) => {
         <li><a href="/profile/reservations" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</a></li>
       </ul>
       <div className="px-4 py-2 bg-gray-100">
-        <a href="/add-annonce" className="block text-sm text-blue-500 hover:underline">Ajouter un annonce</a>
+        <a href="/profile/add-annonce" className="block text-sm text-blue-500 hover:underline">Ajouter un annonce</a>
       </div>
       <ul className="py-1">
         <li><a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Aide</a></li>
