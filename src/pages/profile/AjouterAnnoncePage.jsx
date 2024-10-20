@@ -26,7 +26,7 @@ const AjouterAnnoncePage = () => {
     duration: '',
     destination: '',
     status: 'APPROVED',
-    user_id: user.user_id,
+    userId: user.user_id,
   });
 
   const handleChange = (event) => {
