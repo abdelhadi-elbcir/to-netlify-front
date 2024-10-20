@@ -3,11 +3,6 @@ import React from 'react';
 const AnnonceItem = ({ annonce }) => {
   return (
     <div className="flex items-center p-4 bg-white shadow-md mb-4 transition-transform duration-100 hover:scale-105">
-      <img
-        src={annonce.image}
-        alt={annonce.title}
-        className="w-25 h-25 object-cover mr-4"
-      />
       <div className="flex-1">
         <h4 className="text-lg font-semibold">{annonce.title}</h4>
         <p className="text-gray-600 line-clamp-2 overflow-hidden text-ellipsis">
@@ -21,7 +16,7 @@ const AnnonceItem = ({ annonce }) => {
           Voir plus
         </a>
       </div>
-      <p className="text-gray-500 font-bold text-right">{annonce.price} €</p>
+      <p className="text-gray-500 font-bold text-right">{annonce.budget} €</p>
     </div>
   );
 };

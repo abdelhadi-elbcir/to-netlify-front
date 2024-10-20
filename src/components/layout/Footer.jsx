@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     
-    <footer className="bg-gray-50 text-primary py-10 border-t-2 border-primary-300">
+    <footer className="bg-gray text-primary py-10 border-t-2 border-primary-300">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-between">
         
         {/* Options: Langue et Devise */}
