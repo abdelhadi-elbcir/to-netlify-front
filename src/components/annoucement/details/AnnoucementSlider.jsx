@@ -1,9 +1,13 @@
+import { useSelector } from "react-redux";
 
 
-const AnnoucementSlider = () => {
+const AnnoucementSlider = ({stops}) => {
 
+    
+    const {user} = useSelector(state => state.user)
 
     return (<div className="md:w-2/3">
+        {JSON.stringify(user)}
         <div className="relative aspect-video mb-4">
             <img src="https://t4.ftcdn.net/jpg/00/53/45/31/360_F_53453175_hVgYVz0WmvOXPd9CNzaUcwcibiGao3CL.jpg" alt="Mountain landscape" className="w-full h-full shadow object-cover rounded-lg" />
         </div>

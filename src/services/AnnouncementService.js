@@ -1,11 +1,11 @@
 import apiClient from "./ApiConfig";
 
-const API_URL = 'http://localhost:8081/api/v1/announcement';
+const BASE_API_URL = '/announcement';
 
 // Function to create an announcement
 export const createAnnouncement = async (announcementData) => {
   try {
-    const response = await apiClient.post(`${API_URL}`, announcementData);
+    const response = await apiClient.post(`${BASE_API_URL}`, announcementData);
     return response.data;
   } catch (error) {
     console.error("Error creating announcement:", error);
@@ -16,7 +16,7 @@ export const createAnnouncement = async (announcementData) => {
 // Function to update an announcement
 export const updateAnnouncement = async (id, announcementData) => {
   try {
-    const response = await apiClient.put(`/${id}`, announcementData);
+    const response = await apiClient.put(`${BASE_API_URL}/${id}`, announcementData);
     return response.data;
   } catch (error) {
     console.error("Error updating announcement:", error);
@@ -27,7 +27,7 @@ export const updateAnnouncement = async (id, announcementData) => {
 // Function to delete an announcement
 export const deleteAnnouncement = async (id) => {
   try {
-    const response = await apiClient.delete(`/${id}`);
+    const response = await apiClient.delete(`${BASE_API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting announcement:", error);
@@ -60,9 +60,9 @@ export const getAnnouncementsByCriteria = async (page, size) => {
 };
 
 // Function to get a specific announcement by ID
-export const getAnnouncementById = async (id) => {
+export const getVerfiedAnnouncementById = async (id) => {
   try {
-    const response = await apiClient.get(`/${id}`);
+    const response = await apiClient.get(`${BASE_API_URL}/verfied/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching announcement by ID:", error);
@@ -73,7 +73,7 @@ export const getAnnouncementById = async (id) => {
 // Function to change the status of an announcement
 export const changeAnnouncementStatus = async (id, status) => {
   try {
-    const response = await apiClient.put(`/change-status/${id}`, null, {
+    const response = await apiClient.put(`${BASE_API_URL}/change-status/${id}`, null, {
       params: { status },
     });
     return response.data;

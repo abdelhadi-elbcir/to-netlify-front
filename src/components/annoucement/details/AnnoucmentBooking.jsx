@@ -1,7 +1,9 @@
 import { Calendar, Share2 } from "lucide-react";
 
 
-const AnnoucmentBooking = ({}) => {
+const AnnoucmentBooking = ({announcementId}) => {
+
+    console.log("announcementId:" , announcementId);
 
 
     return (<div className="bg-gray-50 p-4 rounded-lg shadow">

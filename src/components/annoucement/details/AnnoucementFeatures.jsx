@@ -1,32 +1,38 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
 
-const AnnouncementFeatures = () => {
+const AnnouncementFeatures = ({announcement}) => {
 
   const features = [
     {
       title: "Annulation gratuite",
-      description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet"
+      description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet",
+      icon : <Calendar className="h-6 w-6 text-primary" />
     },
     {
-      title: "Précautions sanitaires",
-      description: "Des mesures particulières de santé et de sécurité s'appliquent. Apprendre encore plus"
+      title: "Nombre de personnes",
+      description: announcement?.nbOfPeople,
+      icon : <Calendar className="h-6 w-6 text-primary" />
     },
     {
-      title: "Billet mobile",
-      description: "Utilisez votre téléphone ou imprimez votre bon"
+      title: "La date de départ",
+      description: announcement?.tripDate,
+      icon : <Calendar className="h-6 w-6 text-primary" />
     },
     {
-      title: "Durée",
-      description: "2 heures"
+      title: "duration",
+      description: announcement?.duration+" jeurs",
+      icon : <Calendar className="h-6 w-6 text-primary" />
     },
     {
-      title: "Évitez la file d'attente",
-      description: "Évitez les files d'attente avec un accès prioritaire"
+      title: "Budget",
+      description: announcement?.budget + " MAD",
+      icon : <Calendar className="h-6 w-6 text-primary" />
     },
     {
-      title: "Confirmation instantanée",
-      description: "Recevez une confirmation immédiate de votre réservation"
+      title: "Destination",
+      description: announcement?.destination,
+      icon : <Calendar className="h-6 w-6 text-primary" />
     }
   ];
 
@@ -35,7 +41,7 @@ const AnnouncementFeatures = () => {
       {features.map((feature, index) => (
         <div key={index} className="flex items-start">
           <div className="flex-shrink-0">
-            <Calendar className="h-6 w-6 text-primary" />
+            {feature.icon}
           </div>
           <div className="ml-3">
             <h3 className="text-lg font-medium text-gray-900">{feature.title}</h3>

@@ -3,10 +3,12 @@ import AnnoucmentBooking from './AnnoucmentBooking';
 import AnnoucementDescription from './AnnoucementDescription';
 import AnnoucementFeatures from './AnnoucementFeatures';
 import StopsList from '../stops/StopsList'
-const AnnoucementDetails = ({ annoucement }) => {
+const AnnoucementDetails = ({ announcement }) => {
+
+
   return (
     <div className="max-w-7xl mt-20 mx-auto p-4 font-sans bg-white w-full">
-      <h1 className="text-3xl font-bold mb-2">{annoucement?.title}</h1>
+      <h1 className="text-3xl font-bold mb-2">{announcement?.title}</h1>
       {/* <div className="flex items-center mb-4">
         <span className="mr-2">Gothenburg</span>
         <div className="flex text-yellow-400">
@@ -16,18 +18,18 @@ const AnnoucementDetails = ({ annoucement }) => {
       </div> */}
 
       <div className="flex flex-col md:flex-row gap-6">
-        <AnnoucementSlider />
+        <AnnoucementSlider stops={announcement?.stops}/>
         <div className="md:w-1/3">
-          <AnnoucmentBooking />
+          <AnnoucmentBooking announcementId={announcement?.id} />
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-6">
         <div className="md:w-2/3">
-          <AnnoucementFeatures />
+          <AnnoucementFeatures announcement={announcement}  />
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-6 mt-6">
-        <AnnoucementDescription description={annoucement?.description} />
+        <AnnoucementDescription description={announcement?.description} />
       </div>
       <div className="flex flex-col md:flex-row gap-6  mt-6">
       <div className="md:w-2/3">

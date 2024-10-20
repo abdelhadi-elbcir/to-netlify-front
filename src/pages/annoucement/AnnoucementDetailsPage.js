@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import AnnoucementDetails from "../../components/annoucement/details/AnnoucementDetails"
 import { useParams } from "react-router-dom";
-import { getAnnouncementById } from "../../services/AnnouncementService";
+import { getVerfiedAnnouncementById } from "../../services/AnnouncementService";
 
 const AnnoucementDetailsPage = ()=>{
 
@@ -11,7 +11,8 @@ const AnnoucementDetailsPage = ()=>{
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                let res = await getAnnouncementById(id)
+                let res = await getVerfiedAnnouncementById(id)
+                console.log(res);
                 setAnnoucement(res);
             }catch(err){
                 console.log(err);
