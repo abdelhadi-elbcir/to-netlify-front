@@ -1,40 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import UserService from '../../services/UserService';
 import Sidebar from '../../components/manageProfile/Sidebar';
 import FormInput from '../../components/manageProfile/FormInput';
 import TextareaInput from '../../components/manageProfile/TextareaInput';
 import SelectInput from '../../components/manageProfile/SelectInput';
 import ActionButton from '../../components/buttons/ActionButton';
+import { useSelector } from 'react-redux';
 
 const ProfileInformationPage = () => {
   const [profileData, setProfileData] = useState({
-    name: 'Masum',
-    surname: 'Rana',
+    name: '',
+    surname: '',
     bio: '',
     gender: '',
-    dob: '1986-03-15',
-    phone: '+46 7644 394 68',
+    dob: '',
+    phone: '',
     address: '',
-    location: 'Gothenburg',
-    email: 'masumrana15@gmail.com',
+    email: '',
     password: '',
-    confirmPassword: '',
   });
+  
+  
+  const user = useSelector(state=>state.user);
+
+  const userId =  user.user_id; 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await UserService.getUserById(userId);
+        console.log(userData); // Ajoutez ceci pour vérifier les données
+        setProfileData({
+          name: userData.firstName || '',
+          surname: userData.lastName || '',
+          bio: userData.bio || '',
+          gender: userData.six || '',
+          dob: userData.birthday || '',
+          phone: userData.phone || '',
+          address: userData.address || '',
+          email: userData.email || '',
+        });
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données utilisateur:', error);
+      }
+    };
+    
+    
+
+    fetchUserData();
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfileData({ ...profileData, [name]: value });
+    setProfileData({ ...profileData, [name]: value || '' }); 
   };
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Données du profil sauvegardées :', profileData);
-  };
+    try {
+      const userData = {
+        firstName: profileData.name,
+        lastName: profileData.surname,
+        bio: profileData.bio,
+        six: profileData.gender,
+        birthday: profileData.dob,
+        phone: profileData.phone,
+        address: profileData.address,
+        email: profileData.email,
+      };
+      console.log('Données à envoyer :', userData); 
+      await UserService.updateUser(userId, userData);
+      console.log('Données du profil sauvegardées :', profileData);
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour des données utilisateur:', error);
+    }
+};
 
-  const changePassword = (e) => {
-    e.preventDefault();
-    console.log('password changer');
-  };
 
   return (
     <motion.div 
@@ -84,7 +127,6 @@ const ProfileInformationPage = () => {
 
               <FormInput label="Téléphone" value={profileData.phone} name="phone" handleChange={handleChange} />
               <FormInput label="Adresse" value={profileData.address} name="address" handleChange={handleChange} />
-              <FormInput label="Lieu" value={profileData.location} name="location" handleChange={handleChange} />
               
               <TextareaInput 
                 label="Bio" 
@@ -104,32 +146,6 @@ const ProfileInformationPage = () => {
                   label="Sauvegarder" 
                   isNavigable={true} 
                   onClick={handleSubmit}
-                  className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
-                />
-              </motion.div>
-            </form>
-          </motion.div>
-
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            <h3 className="text-xl font-semibold text-gray-700 mb-6">Sécurité</h3>
-            <form onSubmit={changePassword}>
-              <FormInput label="Adresse E-mail" value={profileData.email} name="email" handleChange={handleChange} />
-              <FormInput label="Mot de Passe" value={profileData.password} name="password" type="password" handleChange={handleChange} />
-              <FormInput label="Confirmer le Mot de Passe" value={profileData.confirmPassword} name="confirmPassword" type="password" handleChange={handleChange} />
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="mt-4"
-              >
-                <ActionButton 
-                  href="" 
-                  label="Changer le mot de passe" 
-                  isNavigable={true} 
-                  onClick={changePassword}
                   className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
                 />
               </motion.div>
