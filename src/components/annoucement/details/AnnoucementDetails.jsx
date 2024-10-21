@@ -14,8 +14,9 @@ const AnnoucementDetails = ({ annoucement }) => {
         <br />
       <div className="flex flex-col md:flex-row gap-6">
         <AnnoucementSlider images={stopImages} />
+
         <div className="md:w-1/3">
-          <AnnoucmentBooking />
+          <AnnoucmentBooking announcementId={annoucement?.id} />
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-6">
