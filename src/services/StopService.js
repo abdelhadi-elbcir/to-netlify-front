@@ -20,7 +20,7 @@ const BASE_URL = 'http://localhost:8081/api/v1/stop';
     formData.append('stops', new Blob([JSON.stringify(stops.map(stop => ({
         titre: stop.titre,
         description: stop.description,
-        location: stop.stopLocation,  // Updated key from stopLocation
+        location: stop.location,  // Updated key from stopLocation
         date: stop.date,
         duration: stop.duration,
         announcementId: stop.announcementId,

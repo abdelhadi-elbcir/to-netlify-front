@@ -62,7 +62,7 @@ export const getAnnouncementsByCriteria = async (page, size) => {
 // Function to get a specific announcement by ID
 export const getAnnouncementById = async (id) => {
   try {
-    const response = await apiClient.get(`/${id}`);
+    const response = await apiClient.get(`${API_URL}/${id}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching announcement by ID:", error);

@@ -19,7 +19,7 @@ const AddStopPage = () => {
   const [stops, setStops] = useState([{
     titre: '',
     description: '',
-    stopLocation: '',
+    location: '',
     date: '',
     duration: '',
     picture: null,
@@ -48,7 +48,7 @@ const AddStopPage = () => {
     setStops([...stops, {
       titre: '',
       description: '',
-      stopLocation: '',
+      location: '',
       date: '',
       duration: '',
       picture: null,
@@ -73,7 +73,7 @@ const AddStopPage = () => {
     const stopsToSend = stops.map(stop => ({
       titre: stop.titre,
       description: stop.description,
-      location: stop.stopLocation,
+      location: stop.location,
       date: stop.date,
       duration: stop.duration,
       picture: stop.picture,
@@ -140,8 +140,8 @@ const AddStopPage = () => {
                 />
                 <FormInput 
                   label="Localisation du Stop" 
-                  name="stopLocation" 
-                  value={stop.stopLocation} 
+                  name="location" 
+                  value={stop.location} 
                   handleChange={(e) => handleChange(index, e)} 
                   required 
                 />

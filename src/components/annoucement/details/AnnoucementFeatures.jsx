@@ -1,32 +1,32 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
 
-const AnnouncementFeatures = () => {
+const AnnouncementFeatures = ({ annoucement }) => {
 
   const features = [
     {
-      title: "Annulation gratuite",
-      description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet"
+      title: "nombre de personnes",
+      description: annoucement?.nbOfPeople 
     },
     {
-      title: "Précautions sanitaires",
-      description: "Des mesures particulières de santé et de sécurité s'appliquent. Apprendre encore plus"
+      title: "la date de trip",
+      description: annoucement?.tripDate 
     },
     {
-      title: "Billet mobile",
-      description: "Utilisez votre téléphone ou imprimez votre bon"
+      title: "Le budget", 
+      description: annoucement?.budget 
     },
     {
       title: "Durée",
-      description: "2 heures"
+      description: annoucement?.duration 
     },
     {
-      title: "Évitez la file d'attente",
-      description: "Évitez les files d'attente avec un accès prioritaire"
+      title: "la destination de trip", 
+      description: annoucement?.destination 
     },
     {
-      title: "Confirmation instantanée",
-      description: "Recevez une confirmation immédiate de votre réservation"
+      title: "Type",
+      description: annoucement?.type
     }
   ];
 

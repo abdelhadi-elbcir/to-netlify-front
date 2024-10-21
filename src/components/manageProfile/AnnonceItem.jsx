@@ -10,7 +10,7 @@ const AnnonceItem = ({ annonce }) => {
         </p>
         {/* Lien vers le détail de l'annonce */}
         <a 
-          href={`/profile/announcements/${annonce.id}`} 
+          href={`/annoucement/${annonce.id}`} 
           className="text-secondary hover:underline mt-2 inline-block"
         >
           Voir plus
