@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import AnnonceList from '../../components/manageProfile/AnnonceList';
 import ActionButton from '../../components/buttons/ActionButton';
 import Sidebar from '../../components/manageProfile/Sidebar';
-import { getAllAnnouncementsByUser } from '../../services/AnnouncementService'; // Assure-toi que le chemin d'importation est correct
+import { getAllAnnouncementsByUser } from '../../services/AnnouncementService'; 
 import { useSelector } from 'react-redux';
 const ProfileAnnouncementPage = () => {
   const [annonces, setAnnonces] = useState([]);
-  const [error, setError] = useState(null); // État pour gérer les erreurs
+  const [error, setError] = useState(null); 
   const user = useSelector(state => state.user);
 
   useEffect(() => {

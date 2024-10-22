@@ -19,18 +19,16 @@ const ProfileInformationPage = () => {
     address: '',
     email: '',
     password: '',
+    picture: null, 
   });
   
-  
-  const user = useSelector(state=>state.user);
-
-  const userId =  user.user_id; 
+  const user = useSelector(state => state.user);
+  const userId = user.user_id; 
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const userData = await UserService.getUserById(userId);
-        console.log(userData); // Ajoutez ceci pour vérifier les données
         setProfileData({
           name: userData.firstName || '',
           surname: userData.lastName || '',
@@ -40,14 +38,13 @@ const ProfileInformationPage = () => {
           phone: userData.phone || '',
           address: userData.address || '',
           email: userData.email || '',
+          picture: userData.picture || '',
         });
       } catch (error) {
         console.error('Erreur lors de la récupération des données utilisateur:', error);
       }
     };
     
-    
-
     fetchUserData();
   }, [userId]);
 
@@ -55,29 +52,40 @@ const ProfileInformationPage = () => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value || '' }); 
   };
-  
+
+  const handleImageChange = (e) => {
+    setProfileData({ ...profileData, picture: e.target.files[0] });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const userData = {
-        firstName: profileData.name,
-        lastName: profileData.surname,
-        bio: profileData.bio,
-        six: profileData.gender,
-        birthday: profileData.dob,
-        phone: profileData.phone,
-        address: profileData.address,
-        email: profileData.email,
-      };
-      console.log('Données à envoyer :', userData); 
-      await UserService.updateUser(userId, userData);
-      console.log('Données du profil sauvegardées :', profileData);
-    } catch (error) {
-      console.error('Erreur lors de la mise à jour des données utilisateur:', error);
+    const formData = new FormData();
+  
+    const user = {
+      firstName: profileData.name, 
+      lastName: profileData.surname, 
+      email: profileData.email,
+      six: profileData.gender, 
+      birthday: profileData.dob,
+      phone: profileData.phone,
+      address: profileData.address,
+      bio: profileData.bio,
+    };
+  
+    formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
+  
+    if (profileData.picture) {
+      formData.append("image", profileData.picture); 
     }
-};
-
+  
+    try {
+      await UserService.updateUser(userId, formData);
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
+  };
+  
 
   return (
     <motion.div 
@@ -87,7 +95,7 @@ const ProfileInformationPage = () => {
       className="min-h-screen flex justify-center items-center bg-gradient-to-b from-white to-white mb-[40px] pt-[64px]"
     >
       <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex overflow-hidden">
-        <Sidebar />
+        <Sidebar picture= {profileData?.picture?.urlImage}/>
         
         <div className="w-3/4 p-10">
           <motion.h2 
@@ -136,6 +144,18 @@ const ProfileInformationPage = () => {
                 placeholder="Entrez votre bio" 
                 rows={4} 
               />
+
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">Photo de profil</label>
+                <input 
+                  type="file" 
+                  name="picture" 
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                />
+              </div>
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
