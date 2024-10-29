@@ -1,0 +1,70 @@
+name: Build, Test, and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint src/**/*.js
+
+      - name: Run Tests
+        run: npm test -- --watchAll=false
+
+      - name: Build React project
+        run: npm run build
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: asebbane/tripy-frontend:latest
+
+      - name: Post build cleanup
+        run: docker builder prune -f
+
+      # - name: Deploy to Staging Environment
+      #   run: |
+      #     docker tag asebbane/tripy-frontend:latest your-registry/staging-frontend:latest
+      #     docker push your-registry/staging-frontend:latest
+
+      # - name: Notify team on Slack
+      #   uses: slackapi/slack-github-action@v1.23.0
+      #   with:
+      #     channel-id: C12345678
+      #     slack-message: "The Docker build and push workflow for tripy-frontend completed successfully!"
+      #     status: success
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
