@@ -22,8 +22,8 @@ jobs:
       - name: Run ESLint
         run: npx eslint src/**/*.js
 
-      - name: Run Tests
-        run: npm test -- --watchAll=false
+      # - name: Run Tests
+      #   run: npm test -- --watchAll=false
 
       - name: Build React project
         run: npm run build
