@@ -7,8 +7,8 @@ const AnnoucmentBooking = ({ announcementId }) => {
     // Form state for BookingReq fields
     const [nbOfPeople, setNbOfPeople] = useState(1);
     const [bookingDate, setBookingDate] = useState(""); 
-    const [totalPrice, setTotalPrice] = useState(78.90); 
-    const [availableSeats, setAvailableSeats] = useState(2); 
+    const [totalPrice] = useState(78.90); 
+    const [availableSeats] = useState(2); 
     const [isModalOpen, setIsModalOpen] = useState(false); 
     const user = useSelector(state=>state.user);
 
