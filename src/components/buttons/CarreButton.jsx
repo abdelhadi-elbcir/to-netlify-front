@@ -5,7 +5,7 @@ const Button = ({ href, label }) => {
     <div>
       <a
         href={href}
-        className="bg-primary text-[#FFFBE6] py-2 px-4 font-bold hover:bg-secondary"
+        className="bg-primary text-[#FFFBE6] py-3 px-4 font-bold hover:bg-secondary"
       >
         {label}
       </a>
