@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        nodejs 'nodejs 20.23.0'
+    }
     environment {
         BUILD_DIR = '/app/build/tripyFront'
     }
