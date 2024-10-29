@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../state/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
 
 const UserDropdown = ({ user, onClose }) => {
   const dispatch = useDispatch();
@@ -9,8 +9,8 @@ const UserDropdown = ({ user, onClose }) => {
 
   const handleLogout = () => {
     dispatch(clearUser());
-    onClose(); // Ferme le dropdown après la déconnexion
-    navigate('/login'); // Redirige l'utilisateur vers la page de login
+    onClose(); 
+    navigate('/login'); 
   };
 
   return (
@@ -20,16 +20,26 @@ const UserDropdown = ({ user, onClose }) => {
         <p className="text-xs text-gray-500">{user.email}</p>
       </div>
       <ul className="py-1">
-        <li><a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil et visibilité</a></li>
-        <li><a href="/profile/announcements" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes annonces</a></li>
-        <li><a href="/profile/reservations" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</a></li>
+        <li>
+          <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profil et visibilité</Link>
+        </li>
+        <li>
+          <Link to="/profile/announcements" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes annonces</Link>
+        </li>
+        <li>
+          <Link to="/profile/reservations" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reservations</Link>
+        </li>
       </ul>
       <div className="px-4 py-2 bg-gray-100">
-        <a href="/profile/add-annonce" className="block text-sm text-blue-500 hover:underline">Ajouter un annonce</a>
+        <Link to="/profile/add-annonce" className="block text-sm text-blue-500 hover:underline">Ajouter une annonce</Link>
       </div>
       <ul className="py-1">
-        <li><a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Aide</a></li>
-        <li><a href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Notifications</a></li>
+        <li>
+          <Link to="/help" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Aide</Link>
+        </li>
+        <li>
+          <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Notifications</Link>
+        </li>
         <li>
           <button onClick={handleLogout} className="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             Déconnexion

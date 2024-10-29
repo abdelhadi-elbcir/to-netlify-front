@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronUp, Search, MapPin, Camera, Compass, Users } from 'lucide-react';
+import { ChevronUp, Search, MapPin, Compass, Users } from 'lucide-react';
 import MainSection from '../../components/home/Main';
 import TripAnnouncementCarousel from '../../components/annoucement/tripAnnouncementCarousel/TripAnnouncementCarousel';
 import AnnouncementList from '../../components/annoucement/announcementList/AnnouncementList';
