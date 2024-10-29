@@ -1,46 +1,86 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import AnnonceList from '../../components/manageProfile/AnnonceList';
 import ActionButton from '../../components/buttons/ActionButton';
 import Sidebar from '../../components/manageProfile/Sidebar';
+import { getAllAnnouncementsByUser } from '../../services/AnnouncementService'; 
+import { useSelector } from 'react-redux';
 const ProfileAnnouncementPage = () => {
-
   const [annonces, setAnnonces] = useState([]);
+  const [error, setError] = useState(null); 
+  const user = useSelector(state => state.user);
+
   useEffect(() => {
     const fetchAnnonces = async () => {
-      const response = [
-        { id: 1, title: 'Annonce 1', description: 'Description de l\'annonce 1Description de l\'annonce Description de l\'annonce Description de l\'annonce Description de l\'annonce Description de l\'annonce ', image: 'https://via.placeholder.com/150', price: 50 },
-        { id: 2, title: 'Annonce 2', description: 'Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2', image: 'https://via.placeholder.com/150', price: 75 },
-        { id: 2, title: 'Annonce 3', description: 'Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2', image: 'https://via.placeholder.com/150', price: 75 },
-        { id: 2, title: 'Annonce 4', description: 'Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2Description de l\'annonce 2', image: 'https://via.placeholder.com/150', price: 75 },
-
-      ];
-      setAnnonces(response);
+        try {
+          const response = await getAllAnnouncementsByUser(user.user_id); 
+          setAnnonces(response); 
+        } catch (error) {
+          setError("Erreur lors de la récupération des annonces."); 
+          console.error("Error fetching announcements:", error);
+        }
+      
     };
 
-    fetchAnnonces();
-  }, []);
+    fetchAnnonces(); 
+  }, [user]);
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white ">
-      <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
-        {/* Barre latérale */}
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen flex justify-center items-center bg-white mb-[40px] pt-[64px]"
+    >
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex overflow-hidden">
         <Sidebar />
 
         <div className="w-3/4 p-10">
-          {/* En-tête */}
-          <h2 className="text-3xl font-semibold text-[#347928] mb-8">Mes Annonces</h2>
+          <motion.h2 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl font-semibold text-primary mb-8"
+          >
+            Mes Annonces
+          </motion.h2>
 
-          <AnnonceList annonces={annonces} />
-          <ActionButton
-            href="/add-annonce"
-            label="ajouter une annonce"
-            isNavigable={true}
-          />
+          {error && (
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.4 }}
+              className="text-red-600 mb-4"
+            >
+              {error} {/* Affiche l'erreur si elle existe */}
+            </motion.div>
+          )}
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            <AnnonceList annonces={annonces} />
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="mt-8"
+          >
+            <ActionButton
+              href="/profile/add-annonce"
+              label="Ajouter une annonce"
+              isNavigable={true}
+              className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
+            />
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
-
 
 export default ProfileAnnouncementPage;

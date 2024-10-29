@@ -1,65 +1,125 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import UserService from '../../services/UserService';
 import Sidebar from '../../components/manageProfile/Sidebar';
 import FormInput from '../../components/manageProfile/FormInput';
 import TextareaInput from '../../components/manageProfile/TextareaInput';
 import SelectInput from '../../components/manageProfile/SelectInput';
 import ActionButton from '../../components/buttons/ActionButton';
+import { useSelector } from 'react-redux';
 
 const ProfileInformationPage = () => {
   const [profileData, setProfileData] = useState({
-    name: 'Masum',
-    surname: 'Rana',
+    name: '',
+    surname: '',
     bio: '',
     gender: '',
-    dob: '15/03/1986',
-    phone: '+46 7644 394 68',
+    dob: '',
+    phone: '',
     address: '',
-    location: 'Gothenburg',
-    email: 'masumrana15@gmail.com',
+    email: '',
     password: '',
-    confirmPassword: '',
+    picture: null, 
   });
+  
+  const user = useSelector(state => state.user);
+  const userId = user.user_id; 
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await UserService.getUserById(userId);
+        setProfileData({
+          name: userData.firstName || '',
+          surname: userData.lastName || '',
+          bio: userData.bio || '',
+          gender: userData.six || '',
+          dob: userData.birthday || '',
+          phone: userData.phone || '',
+          address: userData.address || '',
+          email: userData.email || '',
+          picture: userData.picture || '',
+        });
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données utilisateur:', error);
+      }
+    };
+    
+    fetchUserData();
+  }, [userId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfileData({ ...profileData, [name]: value });
+    setProfileData({ ...profileData, [name]: value || '' }); 
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Ici, vous pouvez ajouter la logique pour sauvegarder les informations du profil
-    console.log('Données du profil sauvegardées :', profileData);
+  const handleImageChange = (e) => {
+    setProfileData({ ...profileData, picture: e.target.files[0] });
   };
 
-  const changePassword = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ici, vous pouvez ajouter la logique pour changer password
-    console.log('password changer');
+    const formData = new FormData();
+  
+    const user = {
+      firstName: profileData.name, 
+      lastName: profileData.surname, 
+      email: profileData.email,
+      six: profileData.gender, 
+      birthday: profileData.dob,
+      phone: profileData.phone,
+      address: profileData.address,
+      bio: profileData.bio,
+    };
+  
+    formData.append("user", new Blob([JSON.stringify(user)], { type: "application/json" }));
+  
+    if (profileData.picture) {
+      formData.append("image", profileData.picture); 
+    }
+  
+    try {
+      await UserService.updateUser(userId, formData);
+      console.log("Profile updated successfully");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
+  
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white">
-      <div className="bg-[#f8f9fa] shadow-lg rounded-lg w-full max-w-5xl flex">
-        {/* Barre latérale */}
-        <Sidebar />
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen flex justify-center items-center bg-gradient-to-b from-white to-white mb-[40px] pt-[64px]"
+    >
+      <div className="bg-white shadow-lg rounded-lg w-full max-w-5xl flex overflow-hidden">
+        <Sidebar picture= {profileData?.picture?.urlImage}/>
         
         <div className="w-3/4 p-10">
-          {/* En-tête */}
-          <h2 className="text-3xl font-semibold text-[#347928] mb-8">Informations Personnelles</h2>
+          <motion.h2 
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-3xl font-semibold text-primary mb-8"
+          >
+            Informations Personnelles
+          </motion.h2>
 
-          {/* Section d'Informations Personnelles */}
-          <div className="mb-10">
-            <form>
-              <div className="flex mb-4">
-                <div className="flex-1 mr-2">
-                  <FormInput label="Nom" value={profileData.name} name="name" handleChange={handleChange} />
-                </div>
-                <div className="flex-1 ml-2">
-                  <FormInput label="Prénom" value={profileData.surname} name="surname" handleChange={handleChange} />
-                </div>
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="mb-10"
+          >
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <FormInput label="Nom" value={profileData.name} name="name" handleChange={handleChange} />
+                <FormInput label="Prénom" value={profileData.surname} name="surname" handleChange={handleChange} />
               </div>
 
-              <div className="flex space-x-4 mb-4">
+              <div className="grid grid-cols-2 gap-4 mb-4">
                 <SelectInput 
                   label="Genre" 
                   value={profileData.gender} 
@@ -75,7 +135,6 @@ const ProfileInformationPage = () => {
 
               <FormInput label="Téléphone" value={profileData.phone} name="phone" handleChange={handleChange} />
               <FormInput label="Adresse" value={profileData.address} name="address" handleChange={handleChange} />
-              <FormInput label="Lieu" value={profileData.location} name="location" handleChange={handleChange} />
               
               <TextareaInput 
                 label="Bio" 
@@ -85,35 +144,36 @@ const ProfileInformationPage = () => {
                 placeholder="Entrez votre bio" 
                 rows={4} 
               />
-              <br />
-              <ActionButton 
-                href="" 
-                label="sauvegarder" 
-                isNavigable={true} 
-                onClick={handleSubmit}
-            />
-            </form>
-          </div>
 
-          {/* Section de Sécurité */}
-          <div>
-            <h3 className="text-xl font-semibold text-gray-700 mb-6">Sécurité</h3>
-            <form>
-              <FormInput label="Adresse E-mail" value={profileData.email} name="email" handleChange={handleChange} />
-              <FormInput label="Mot de Passe" value={profileData.password} name="password" type="password" handleChange={handleChange} />
-              <FormInput label="Confirmer le Mot de Passe" value={profileData.confirmPassword} name="confirmPassword" type="password" handleChange={handleChange} />
-               <br />
-               <ActionButton 
-                href="" 
-                label="sauvegarder" 
-                isNavigable={true} 
-                onClick={changePassword}
-            />
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700">Photo de profil</label>
+                <input 
+                  type="file" 
+                  name="picture" 
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                />
+              </div>
+
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="mt-4"
+              >
+                <ActionButton 
+                  href="" 
+                  label="Sauvegarder" 
+                  isNavigable={true} 
+                  onClick={handleSubmit}
+                  className="bg-secondary hover:bg-primary text-white font-bold py-2 px-4 rounded transition duration-300"
+                />
+              </motion.div>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
