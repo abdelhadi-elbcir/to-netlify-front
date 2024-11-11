@@ -15,8 +15,7 @@ const Footer = () => {
   };
 
   return (
-    
-    <footer className="bg-gray text-primary py-10 border-t-2 border-primary-300">
+    <footer className="bg-gray-200 text-primary py-10 border-t-2 border-primary-300">
       <div className="max-w-6xl mx-auto flex flex-wrap justify-between">
         
         {/* Options: Langue et Devise */}
@@ -48,10 +47,10 @@ const Footer = () => {
         <div className="flex-1 min-w-[200px] p-4">
           <h4 className="text-lg font-bold mb-3">Entreprise</h4>
           <ul>
-            <li><a href="#" className="text-primary  hover:underline">À propos de nous</a></li>
-            <li><a href="#" className="text-primary  hover:underline">Blog</a></li>
-            <li><a href="#" className="text-primary  hover:underline">Salle de presse</a></li>
-            <li><a href="#" className="text-primary  hover:underline">Carrières</a></li>
+            <li><a href="#" className="text-primary hover:underline">À propos de nous</a></li>
+            <li><a href="#" className="text-primary hover:underline">Blog</a></li>
+            <li><a href="#" className="text-primary hover:underline">Salle de presse</a></li>
+            <li><a href="#" className="text-primary hover:underline">Carrières</a></li>
           </ul>
         </div>
 

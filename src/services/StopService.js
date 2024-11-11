@@ -16,20 +16,20 @@ const BASE_URL = 'http://localhost:8081/api/v1/stop';
   export const addStops = async (stops) => {
     const formData = new FormData();
 
-    // Prepare stops data
+    // Prepare stops data and set the correct content type
     formData.append('stops', new Blob([JSON.stringify(stops.map(stop => ({
-        title: stop.title,
+        titre: stop.titre,
         description: stop.description,
-        location: stop.location,
+        location: stop.location,  // Updated key from stopLocation
         date: stop.date,
         duration: stop.duration,
-        announcement_id: stop.announcement_id
+        announcementId: stop.announcementId,
     })))], { type: 'application/json' }));
 
-    // Prepare images
-    stops.forEach((stop, index) => {
+    // Append images to the formData
+    stops.forEach((stop) => {
         if (stop.picture) {
-            formData.append('images', stop.picture);  
+            formData.append('images', stop.picture);  // Add the picture
         }
     });
 
@@ -39,12 +39,10 @@ const BASE_URL = 'http://localhost:8081/api/v1/stop';
         });
         return response.data;
     } catch (error) {
-        console.error('Erreur lors de l\'ajout des arrêts:', error);
+        console.error('Erreur lors de l\'ajout des arrêts:', error.response?.data || error.message);
         throw error;
     }
 };
-
-  
 
   // Mettre à jour un stop existant
   export const updateStop = async (id, stopReq) => {

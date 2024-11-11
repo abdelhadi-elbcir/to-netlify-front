@@ -8,20 +8,20 @@ const AnnoucementDetailsPage = ()=>{
     const {id} = useParams()
     const [announcement, setAnnoucement] = useState({});
 
-    useEffect(()=>{
-        const fetchData = async ()=>{
-            try{
-                let res = await getVerfiedAnnouncementById(id)
-                console.log(res);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                let res = await getVerfiedAnnouncementById(id);
                 setAnnoucement(res);
-            }catch(err){
+                console.log("Fetched announcement:", res); 
+            } catch (err) {
                 console.log(err);
             }
-        }
+        };
         fetchData();
-    },[id])
-
-    return <AnnoucementDetails announcement={announcement}/>
+    }, [id]);
+    
+    return <AnnoucementDetails annoucement={announcement}/>
      
 }
 

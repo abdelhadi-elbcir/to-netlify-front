@@ -1,6 +1,6 @@
 import apiClient from "./ApiConfig";
 
-const BASE_API_URL = '/announcement';
+const BASE_API_URL = 'http://localhost:8081/api/v1/announcement';
 
 // Function to create an announcement
 export const createAnnouncement = async (announcementData) => {
@@ -38,7 +38,7 @@ export const deleteAnnouncement = async (id) => {
 // Function to get all announcements
 export const getAllAnnouncements = async () => {
   try {
-    const response = await apiClient.get("/");
+    const response = await apiClient.get(`${BASE_API_URL}/getAll`);
     return response.data;
   } catch (error) {
     console.error("Error fetching announcements:", error);

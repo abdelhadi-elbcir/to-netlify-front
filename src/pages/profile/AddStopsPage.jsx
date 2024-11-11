@@ -7,6 +7,7 @@ import { addStops } from '../../services/StopService';
 import Popup from '../../components/popup/PopupRegister';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa'; // Font Awesome Trash icon
 
 const AddStopPage = () => {
   const [message, setMessage] = useState('');
@@ -16,9 +17,9 @@ const AddStopPage = () => {
   const { announcementId } = useParams(); 
   
   const [stops, setStops] = useState([{
-    title: '',
+    titre: '',
     description: '',
-    stopLocation: '',
+    location: '',
     date: '',
     duration: '',
     picture: null,
@@ -45,14 +46,18 @@ const AddStopPage = () => {
 
   const addStop = () => {
     setStops([...stops, {
-      title: '',
+      titre: '',
       description: '',
-      stopLocation: '',
+      location: '',
       date: '',
       duration: '',
       picture: null,
       announcement_id : announcementId,
     }]);
+  };
+
+  const removeStop = (index) => {
+    setStops((prevStops) => prevStops.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
@@ -66,13 +71,13 @@ const AddStopPage = () => {
 
     // Construction des stops avec leurs données et images
     const stopsToSend = stops.map(stop => ({
-      title: stop.title,
+      titre: stop.titre,
       description: stop.description,
-      location: stop.stopLocation,
+      location: stop.location,
       date: stop.date,
       duration: stop.duration,
-      picture: stop.picture,  // Le fichier d'image sélectionné
-      announcement_id: stop.announcement_id
+      picture: stop.picture,
+      announcementId: stop.announcement_id
     }));
 
     try {
@@ -85,7 +90,6 @@ const AddStopPage = () => {
       setIsError(true);
     }
 };
-
 
   const closePopup = () => {
     setShowPopup(false);
@@ -120,18 +124,24 @@ const AddStopPage = () => {
             transition={{ delay: 0.4 }}
           >
             {stops.map((stop, index) => (
-              <div key={index} className="border p-4 mb-4 rounded-lg">
+              <div key={index} className="border p-4 mb-4 rounded-lg relative">
+                {/* Delete icon */}
+                <FaTrash 
+                  className="absolute top-0 right-0 mt-2 mr-2 cursor-pointer text-red-500 hover:text-red-700 transition"
+                  onClick={() => removeStop(index)}
+                />
+
                 <FormInput 
-                  label="title" 
-                  name="title" 
-                  value={stop.title} 
+                  label="titre" 
+                  name="titre" 
+                  value={stop.titre} 
                   handleChange={(e) => handleChange(index, e)} 
                   required 
                 />
                 <FormInput 
                   label="Localisation du Stop" 
-                  name="stopLocation" 
-                  value={stop.stopLocation} 
+                  name="location" 
+                  value={stop.location} 
                   handleChange={(e) => handleChange(index, e)} 
                   required 
                 />

@@ -1,38 +1,32 @@
 import React from 'react';
-import { Calendar, CheckCheck, Clock, DollarSign, LocateIcon, User } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
-const AnnouncementFeatures = ({announcement}) => {
+const AnnouncementFeatures = ({ annoucement }) => {
 
   const features = [
     {
-      title: "Annulation gratuite",
-      description: "Annulez jusqu'à 24 heures à l'avance pour recevoir un remboursement complet",
-      icon : <CheckCheck className="h-6 w-6 text-primary" />
+      title: "nombre de personnes",
+      description: annoucement?.nbOfPeople 
     },
     {
-      title: "Nombre de personnes",
-      description: announcement?.nbOfPeople,
-      icon : <User className="h-6 w-6 text-primary" />
+      title: "la date de trip",
+      description: annoucement?.tripDate 
     },
     {
-      title: "La date de départ",
-      description: announcement?.tripDate,
-      icon : <Clock className="h-6 w-6 text-primary" />
+      title: "Le budget", 
+      description: annoucement?.budget 
     },
     {
-      title: "duration",
-      description: announcement?.duration+" jeurs",
-      icon : <Calendar className="h-6 w-6 text-primary" />
+      title: "Durée",
+      description: annoucement?.duration 
     },
     {
-      title: "Budget",
-      description: announcement?.budget + " MAD",
-      icon : <DollarSign className="h-6 w-6 text-primary" />
+      title: "la destination de trip", 
+      description: annoucement?.destination 
     },
     {
-      title: "Destination",
-      description: announcement?.destination,
-      icon : <LocateIcon className="h-6 w-6 text-primary" />
+      title: "Type",
+      description: annoucement?.type
     }
   ];
 
@@ -41,7 +35,7 @@ const AnnouncementFeatures = ({announcement}) => {
       {features.map((feature, index) => (
         <div key={index} className="flex items-start">
           <div className="flex-shrink-0">
-            {feature.icon}
+            <Calendar className="h-6 w-6 text-primary" />
           </div>
           <div className="ml-3">
             <h3 className="text-lg font-medium text-gray-900">{feature.title}</h3>

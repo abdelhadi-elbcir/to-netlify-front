@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FaUser, FaHistory, FaBell, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaHistory, FaBell, FaEnvelope ,FaLock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
-const Sidebar = () => {
+import { useSelector } from 'react-redux';
+const Sidebar = ({picture}) => {
   const [activeItem, setActiveItem] = useState(''); 
   const navigate = useNavigate(); 
 
@@ -15,21 +15,22 @@ const Sidebar = () => {
     }
   };
 
+const user = useSelector(state => state.user);
+
   return (
     <div className="w-1/4 p-4 bg-gray-50 shadow-lg rounded-md">
-      {/* Section de l'utilisateur avec la photo de profil */}
+  
       <div className="text-center mb-6">
         <img
-          src="https://via.placeholder.com/100" // Remplacez par l'image de l'utilisateur
+          src={picture} 
           alt="Profil de l'utilisateur"
           className="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary"
         />
-        <h3 className="text-lg font-semibold text-gray-800">Masum Rana</h3>
-        <p className="text-gray-500">Gothenburg</p>
-        <p className="text-gray-400 text-sm">15 Février</p>
+        <h3 className="text-lg font-semibold text-gray-800">{user.name}</h3>
+      
       </div>
 
-      {/* Menu de navigation */}
+    
       <ul className="space-y-4">
         <li
           className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
@@ -74,6 +75,17 @@ const Sidebar = () => {
         >
           <FaBell />
           <span className="font-medium">Gérer les Annonces</span>
+        </li>
+        <li
+          className={`flex items-center space-x-2 cursor-pointer p-3 rounded-md transition-colors duration-200 ${
+            activeItem === 'securite'
+              ? 'bg-primary text-white'
+              : 'hover:bg-secondary hover:text-highlight text-gray-700'
+          }`}
+          onClick={() => handleNavigation('securite')}
+        >
+          <FaLock  />
+          <span className="font-medium">Securité</span>
         </li>
       </ul>
     </div>
