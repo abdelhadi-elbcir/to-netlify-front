@@ -17,7 +17,7 @@ import AboutPage from './pages/about/AboutPage';
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/annoucement/:id" element={<AnnoucementDetailsPage />} />
-        <Route path='/login' element={<Login/>}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/>
+        <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path='/contact' element={<ContactFrom/>}/>
         <Route path='/a-propos' element={<AboutPage/>} />
