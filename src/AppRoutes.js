@@ -9,8 +9,6 @@
   import AnnoucementDetailsPage from './pages/annoucement/AnnoucementDetailsPage';
   import ProfileBookingsPage from './pages/profile/ProfileBookingsPage';
   import AddStopsPage from './pages/profile/AddStopsPage';
-import ContactFrom from './pages/contact/ContactForm';
-import AboutPage from './pages/about/AboutPage';
 
   const AppRoutes = () => {
     return (
@@ -19,14 +17,12 @@ import AboutPage from './pages/about/AboutPage';
         <Route path="/annoucement/:id" element={<AnnoucementDetailsPage />} />
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/contact' element={<ContactFrom/>}/>
-        <Route path='/a-propos' element={<AboutPage/>} />
         <Route path='/profile' element={<ProfileInformationPage/>}/>
         <Route path='/profile/announcements' element={<ProfileAnnouncementPage/>}/>
         <Route path='/profile/reservations' element={<ProfileBookingsPage/>}/>
         <Route path="/profile/add-annonce" element={<AjouterAnnoncePage />} />
         <Route path="/profile/announcements/:announcementId/add-stops" element={<AddStopsPage />} />
-      </Routes>
+        </Routes>
     );
   };
 

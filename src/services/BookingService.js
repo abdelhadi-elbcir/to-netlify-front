@@ -59,6 +59,19 @@ export const getBookingsByCriteria = async (page, size) => {
   }
 };
 
+
+export const getUserBookings = async (userId, page, size) => {
+  try {
+    const response = await apiClient.get(`${BASE_API_URL}/user/${userId}`, {
+      params: { page, size },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching bookings by criteria:", error);
+    throw error;
+  }
+};
+
 // Function to get a specific booking by ID
 export const getVerfiedBookingById = async (id) => {
   try {

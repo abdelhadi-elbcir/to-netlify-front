@@ -1,26 +1,34 @@
 import { useState } from "react";
-import { Calendar, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { createBooking } from "../../../services/BookingService";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-const AnnoucmentBooking = ({ announcementId }) => {
+const AnnoucmentBooking = ({ announcementId, annoucementPrice }) => {
     // Form state for BookingReq fields
     const [nbOfPeople, setNbOfPeople] = useState(1);
     const [bookingDate, setBookingDate] = useState(""); 
-    const [totalPrice] = useState(78.90); 
     const [availableSeats] = useState(2); 
     const [isModalOpen, setIsModalOpen] = useState(false); 
+    const navigate = useNavigate();
     const user = useSelector(state=>state.user);
 
     // Booking handler to create the booking based on BookingReq data
     const handleBooking = async () => {
+
+        console.log("userId: ", user.user_id)
+        if(!user.user_id)
+            navigate("/login");
+
         const bookingData = {
             nbOfPeople,
             bookingDate,   
-            totalPrice,
+            totalPrice: annoucementPrice * nbOfPeople,
             userID: user.user_id,
             announcementID: announcementId,
         };
+
+        
 
         try {
             const response = await createBooking(bookingData);
@@ -50,15 +58,15 @@ const AnnoucmentBooking = ({ announcementId }) => {
                     <label className="block text-sm font-medium text-gray-700">Date de réservation :</label>
                     <div className="mt-1 relative rounded-md shadow-sm">
                         <input
-                            type="text"
+                            type="date"
                             value={bookingDate}
                             onChange={(e) => setBookingDate(e.target.value)}
                             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 sm:text-sm border-gray-300 rounded-md"
                             placeholder="10/12/2021"
                         />
-                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        {/* <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                             <Calendar className="h-5 w-5 text-gray-400" />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -71,6 +79,8 @@ const AnnoucmentBooking = ({ announcementId }) => {
                         onChange={(e) => setNbOfPeople(e.target.value)}
                         className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-3 pr-10 py-2 sm:text-sm border-gray-300 rounded-md"
                         placeholder="1"
+                        max={availableSeats}
+                        min={1}
                     />
                 </div>
 
@@ -92,7 +102,7 @@ const AnnoucmentBooking = ({ announcementId }) => {
                     onClick={openModal}
                     className="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-600 transition duration-200"
                 >
-                    Confirm Booking
+                    Réserver
                 </button>
 
                 {/* Button to share the activity */}

@@ -4,7 +4,7 @@ import axios from 'axios';
 // Crée un "thunk" pour gérer l'appel API asynchrone
 export const loginUser = (username, password) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:8081/api/auth/login', {
+    const response = await axios.post('http://localhost:8081/api/v1/auth/login', {
       username,
       password,
     });
